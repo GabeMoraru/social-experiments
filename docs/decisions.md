@@ -38,8 +38,11 @@ Each rule exists to answer the question cleanly. This records why.
   rule wordings were left out to keep each cell large and the result one chart. A naming effect has human precedent:
   the same dilemma called the "Wall Street" rather than the "Community" game draws much less cooperation (Liberman,
   Samuels & Ross 2004).
-- **Measures from moves, reasons from a judge.** Everything about what residents did is computed exactly; a
-  classifier only labels why, and only where its thresholds hold on held-out labels.
+- **Measures from moves, reasons from judges.** Everything about what residents did is computed exactly; judges only
+  label why, and only where they hold up on held-out labels.
+- **Two judges, one from another provider.** A classifier (Jev) and an LLM judge answer the same yes-or-no questions,
+  so each checks the other. LLM judges favour their own model family (Spiliopoulou et al. 2025), so the judge comes
+  from another provider than the players. It quotes its evidence before each verdict and never sees the condition.
 - **Avoidable means someone held spare.** A death counts as avoidable only when others held more than their own need
   that night. Deaths from a run of low deliveries are bad luck, not harm.
 - **Everything is recorded.** Each game keeps every request text, reply, thinking summary, token count and cost, so

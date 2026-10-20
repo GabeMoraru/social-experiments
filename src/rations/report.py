@@ -68,18 +68,20 @@ def grab_advantage(games):
     return rows
 
 
-def reasons(tag):
-    """Share of summaries asserting each reported reason, per cell. Empty until calibration has run."""
-    if not judge.THRESHOLDS.exists():
-        return {}, []
-    thresholds = {q: t['threshold'] for q, t in json.loads(judge.THRESHOLDS.read_text()).items() if t['reported']}
-    known, shares = judge.answers(), defaultdict(lambda: defaultdict(list))
+def reasons(tag, calibration):
+    """Share of summaries asserting each reason, per cell and judge, for the questions that judge passed."""
+    jev, luna = judge.answers(), judge.answers(judge.LUNA_CACHE)
+    columns = {
+        f'{q} (Jev)': (jev, lambda a, q=q, t=c['threshold']: a[q] >= t) for q, c in calibration.items() if c['reported']
+    }
+    columns |= {f'{q} (Luna)': (luna, lambda a, q=q: a[q]) for q, c in calibration.items() if c['luna_reported']}
+    shares = defaultdict(lambda: defaultdict(list))
     for key, text in judge.summaries(tag):
         cell = tuple(key.split('/')[0].split('-')[:2])
-        for q, t in thresholds.items():
+        for column, (known, says_yes) in columns.items():
             if judge.digest(text) in known:
-                shares[cell][q].append(known[judge.digest(text)][q] >= t)
-    return shares, list(thresholds)
+                shares[cell][column].append(says_yes(known[judge.digest(text)]))
+    return shares, list(columns)
 
 
 def chart(cells, path):
@@ -153,7 +155,22 @@ def report(tag):
             f'| {frame} | {n_grab} | {"-" if grab is None else f"{grab:.2f}"} | {n_rest} | '
             f'{"-" if rest is None else f"{rest:.2f}"} |'
         )
-    shares, questions = reasons(tag)
+    calibration = json.loads(judge.THRESHOLDS.read_text()) if judge.THRESHOLDS.exists() else {}
+    if calibration:
+        out += [
+            '',
+            "## Judge agreement (Cohen's kappa)",
+            '',
+            'Against the reference labels on the held-out half, and between the two judges over every summary both read.',
+            '',
+            '| Question | Luna vs reference | Jev vs reference | Luna vs Jev | Reference passes agree |',
+            '|---|---|---|---|---|',
+        ]
+        out += [
+            f'| {q} | {c["luna_kappa"]:.2f} | {c["jev_kappa"]:.2f} | {c["luna_jev_kappa"]:.2f} | {c["pass_agreement"]:.2f} |'
+            for q, c in calibration.items()
+        ]
+    shares, questions = reasons(tag, calibration)
     if questions:
         out += [
             '',

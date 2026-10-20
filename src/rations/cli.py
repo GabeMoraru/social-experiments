@@ -27,9 +27,10 @@ def main():
     probe.add_argument('--reps', type=int, default=3)
     probe.add_argument('--cap', type=float, required=True)
 
-    jev = commands.add_parser('jev', help='ask Jev about every thinking summary in a tag (paid, cached)')
-    jev.add_argument('--tag', required=True)
-    jev.add_argument('--cap', type=float, required=True)
+    judge_ = commands.add_parser('judge', help='ask a judge about every thinking summary in a tag (paid, cached)')
+    judge_.add_argument('judge', choices=judge.JUDGES)
+    judge_.add_argument('--tag', required=True)
+    judge_.add_argument('--cap', type=float, required=True)
 
     calibrate = commands.add_parser('calibrate', help='write a sample to label, or set thresholds from labels')
     calibrate.add_argument('--tag', required=True)
@@ -44,8 +45,8 @@ def main():
             run.run(args.tag, args.seeds, args.levels, args.framings, args.cap)
         elif args.command == 'probe':
             run.probe(args.reps, args.cap)
-        elif args.command == 'jev':
-            judge.label_all(args.tag, args.cap)
+        elif args.command == 'judge':
+            judge.label_all(args.tag, args.cap, args.judge)
         elif args.command == 'calibrate':
             judge.calibrate(args.tag, args.sample)
         elif args.command == 'report':
