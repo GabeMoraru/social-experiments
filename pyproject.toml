@@ -1,0 +1,30 @@
+[project]
+name = "rations"
+version = "0.1.0"
+description = "Do language-model agents let each other starve, and is it the stakes or the story?"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "httpx>=0.28.1",
+    "langchain-anthropic==1.7.6",
+    "matplotlib>=3.11.2",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.13,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "ruff>=0.17.1",
+]
+
+[project.scripts]
+rations = "rations.cli:main"
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.format]
+quote-style = "single"
