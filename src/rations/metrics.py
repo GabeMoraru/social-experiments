@@ -20,25 +20,28 @@ def measure(days, level):
         day = d['day']
         pool = d['store'] + d['delivery']
         is_contested = sum(a['claim'] for a in d['acts'].values()) > pool
+        given = {name: sum(a for g, _, a in d['gifts'] if g == name) for name in d['alive']}
         for name in d['alive']:
-            # grabbing: taking more than an equal share of a store that cannot meet every claim
-            if is_contested and d['acts'][name]['claim'] > pool / len(d['alive']):
+            kept = d['acts'][name]['claim'] - given[name]  # rations claimed to give away the same day are not kept
+            # grabbing: keeping more than an equal share of a pool that cannot meet every claim
+            if is_contested and kept > pool / len(d['alive']):
                 grabbers.add(name)
             resident_days += 1
-            # over-claiming: asking for more than would bring you up to your own need
-            if d['acts'][name]['claim'] > max(0, nights_left(day) - d['held'][name]):
+            # over-claiming: keeping more than would bring you up to your own need
+            if kept > max(0, nights_left(day) - d['held'][name]):
                 over_claims += 1
                 contested += is_contested
         after_claims = {name: d['held'][name] + d['granted'][name] for name in d['alive']}
         for giver, to, amount in d['gifts']:
             rescue += amount if after_claims[to] < nights_left(day) else 0
-            given = sum(a for g, _, a in d['gifts'] if g == giver)
-            sacrifice += amount if after_claims[giver] - given < nights_left(day) else 0
-        # a death is avoidable when the others held spare rations that night that could have fed the one who died
-        survivors = [name for name in d['alive'] if name not in d['died']]
-        others_spare = sum(spare(d['at_night'][name], day) for name in survivors)
-        if d['died'] and others_spare:
-            avoidable += min(len(d['died']), others_spare)
+            sacrifice += amount if after_claims[giver] - given[giver] < nights_left(day) else 0
+        # a death is avoidable when nobody claiming that day would have prevented it: the pool would then feed
+        # everyone who held nothing, as far as it goes, so only deaths beyond that shortfall count
+        hungry = sum(1 for name in d['alive'] if d['held'][name] == 0)
+        avoidable_tonight = max(0, len(d['died']) - max(0, hungry - pool))
+        if avoidable_tonight:
+            avoidable += avoidable_tonight
+            survivors = [name for name in d['alive'] if name not in d['died']]
             withholding += sum(1 for name in survivors if spare(d['at_night'][name], day))
     # day 1 is the human request game: one simultaneous claim each on a pool of known range, no messages yet
     first = days[0]

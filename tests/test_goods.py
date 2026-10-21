@@ -12,9 +12,13 @@ def test_the_negative_wording_describes_the_same_points():
         for _ in range(500):
             group = {seat: rng.randint(0, goods.TOKENS) for seat in goods.SEATS}
             kept = {seat: goods.TOKENS - g for seat, g in group.items()}
-            # as the negative wording tells it: own tokens pay 1 - r and cost every other member r, plus a fixed amount
+            # as the negative wording tells it: a kept token pays 1 and costs every other member r, a token in the
+            # group account pays its owner r, and everyone gets a fixed amount
             told = {
-                seat: (1 - r) * kept[seat] - r * (sum(kept.values()) - kept[seat]) + goods.SIZE * goods.TOKENS * r
+                seat: kept[seat]
+                - r * (sum(kept.values()) - kept[seat])
+                + r * group[seat]
+                + (goods.SIZE - 1) * goods.TOKENS * r
                 for seat in goods.SEATS
             }
             assert all(abs(told[seat] - points) < 1e-9 for seat, points in goods.points(group, r).items())

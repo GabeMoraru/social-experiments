@@ -35,7 +35,7 @@ NOUNS = {
     'day': ('day', 'round'),
     'Day': ('Day', 'Round'),
     'this_morning': ('This morning', 'This round'),
-    'todays': ("Today's", "This round's"),
+    'todays': ("today's", "this round's"),
     'next_morning': ('the next morning', 'the next round'),
     'each_night': ('Each night', 'At the end of each round'),
     'last_night': ('Last night', 'End of last round'),
@@ -61,8 +61,10 @@ Every {day}, all {whos} act at the same time, each using the act tool once:
 - give: {items} to other living {whos}, out of what you hold once today's claims are shared out (gifts \
 reaching you today cannot be passed on).
 
-Then the {store} receives between {lo} and {hi} {items}, each amount equally likely, and the claims are shared out \
-of what it holds: in full if they fit, otherwise in proportion to the claims.
+Then the {store} receives between {lo} and {hi} {items}, each amount equally likely, and only then are the claims \
+shared out of everything it holds, the delivery included: in full if they fit, otherwise in proportion to the claims, \
+in whole {items} (any left over after rounding go to the largest remainders, ties by lot). Whatever is not claimed \
+stays in the {store}.
 
 {each_night}, every {who} {eats} one {item}: one of their own if they hold any, otherwise one from the {store}, \
 given by lot if there are not enough. A {who} who gets none {dies}."""
@@ -108,8 +110,8 @@ def turn(frame, level, me, morning, days):
     lines = [
         f'{f["Day"]} {day} of {DAYS}. {f["nights"]} left, {f["tonight"]} included: {nights_left(day)}.',
         (
-            f'{f["this_morning"]} the {f["store"]} holds {morning["store"]}. {f["todays"]} delivery, between {lo} '
-            f'and {hi} {f["items"]}, arrives after everyone acts.'
+            f'{f["this_morning"]} the {f["store"]} holds {morning["store"]}; claims are shared out of that plus '
+            f'{f["todays"]} delivery, between {lo} and {hi} {f["items"]}, which arrives after everyone acts.'
         ),
     ]
     if days:

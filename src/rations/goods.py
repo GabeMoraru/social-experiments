@@ -1,8 +1,8 @@
 """Public goods: four residents split tokens between their own account and a group account, for ten rounds.
 
 Copied from the no-punishment partner arm of Fehr & Gächter (2000), with the two returns per token of Isaac & Walker
-(1988) and the positive and negative wording of Andreoni (1995). The negative wording describes the same payoffs as
-harm done by keeping tokens; the choice and the points are identical in both.
+(1988) and the positive and negative wording of Andreoni (1995), sentence for sentence. The negative wording describes
+the same payoffs as harm done by keeping tokens; the choice and the points are identical in both.
 """
 
 from concurrent.futures import ThreadPoolExecutor
@@ -19,10 +19,10 @@ ACCOUNTS = {
     'positive': """- Each token in your own account pays you 1 point.
 - Each token in the group account pays {r:g} points to every member of the group, you included, whoever put it \
 there.""",
-    'negative': """- Each token in your own account pays you {keep:g} points and lowers the points of every other member \
-by {r:g}.
-- Each token in the group account pays nothing.
-- Every round, every member also receives {base:g} points.""",
+    'negative': """- Each token in your own account pays you 1 point and lowers the points of every other member by \
+{r:g}. In the same way, every token another member keeps in their own account lowers your points by {r:g}.
+- Each token in the group account pays you {r:g} points and does not change any other member's points.
+- Every round, every member also receives {base:g} points, whatever anyone does.""",
 }
 TEXT = """You are one of {size} members of a group that stays together for {rounds} rounds.
 
@@ -54,7 +54,7 @@ def points(group, r):
 
 def instructions(level, wording):
     r = RETURNS[level]
-    accounts = ACCOUNTS[wording].format(r=r, keep=round(1 - r, 2), base=round(SIZE * TOKENS * r, 2))
+    accounts = ACCOUNTS[wording].format(r=r, base=round((SIZE - 1) * TOKENS * r, 2))
     return TEXT.format(size=SIZE, rounds=ROUNDS, tokens=TOKENS, accounts=accounts)
 
 

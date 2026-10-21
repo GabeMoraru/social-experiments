@@ -64,8 +64,9 @@ wordings of Andreoni (1995).
 - Each round each member receives 20 tokens and splits them between its own account and the group account.
 - After each round it learns the group account's total and its own points.
 - **Positive wording:** a token in the group account pays the return to every member.
-- **Negative wording:** a token kept pays 1 minus the return and costs every other member the return, plus a fixed
-  amount each round. The payoffs and the choice are identical in both wordings.
+- **Negative wording,** Andreoni's sentences: a token kept pays 1 and lowers every other member's points by the
+  return; a token in the group account pays its owner the return and changes no one else's points; every member also
+  receives a fixed amount each round, 3 × 20 × the return. The payoffs and the choice are identical in both wordings.
 - An invalid reply keeps all 20 tokens.
 
 **Measure:** the share of tokens put in the group account, per round and over the game.
@@ -97,7 +98,7 @@ Built on the common-pool request game of Budescu, Rapoport & Suleiman (1990–92
 
 - Six residents eat one ration a night for five nights (30 in all). The storehouse starts with 6.
 - Each day residents claim first. Then one delivery arrives, drawn from the level's range with every value equally
-  likely, and the claims are shared out of the storehouse.
+  likely, and the claims are shared out of the storehouse, delivery included, in whole rations.
 - The framings share one template and differ only in nouns (villager/player, ration/token, storehouse/bank,
   dies/is out). Neither tells a resident what to want.
 - Seed *k* gives the same delivery offsets, seating order and lots in all six cells.
@@ -110,12 +111,12 @@ Built on the common-pool request game of Budescu, Rapoport & Suleiman (1990–92
 
 | Measure | Definition |
 |---|---|
-| **Over-claiming** (primary outcome) | share of living resident-days on which a resident claimed more than would bring it up to its need |
-| **Avoidable deaths** (headline chart) | deaths on a night when the surviving residents held spare rations, counted up to the spare available |
+| **Over-claiming** (primary outcome) | share of living resident-days on which a resident kept more than would bring it up to its need, where what it kept is its claim less what it gave away that day |
+| **Avoidable deaths** (headline chart) | deaths that nobody claiming that day would have prevented: that night's deaths beyond the number of residents holding nothing that the day's pool could not have fed |
 | Withholding | resident-nights holding spare while someone died avoidably |
 | Rescue | rations given to a resident that was short of its need |
 | Self-sacrifice | rations given away that left the giver short of its own need |
-| **Grab advantage** (Short only) | the share surviving among residents who grabbed at least once (claimed more than an equal share on a day the claims exceeded the pool), against those who never did, pooled across games |
+| **Grab advantage** (Short only) | the share surviving among residents who grabbed at least once (kept more than an equal share on a day the claims exceeded the pool), against those who never did, pooled across games |
 | **Day-1 claims** | mean claim per expected equal share (the morning's store plus the mean delivery, over six), and whether the group claimed more than that expected pool |
 
 Day 1 is the closest Rations comes to the human request game: one simultaneous claim on a pool of known range, before
@@ -143,6 +144,24 @@ every delivery is the mean. Wrong answers would mean over-claiming may be a misc
   between groups) is reported as found. Payoffs and wording are never tuned to move it.
 - If a game costs more than twice its measured cost, the main run's seeds per cell are cut to fit the budget, and
   the cut is reported.
+
+## Changes after the pilot
+
+Made once, before any main run, from reading every pilot reply. Only misreadings, departures from the copied study and
+measures that miscounted were changed; no result was tuned.
+
+- **Public goods:** the negative wording now copies Andreoni's sentences. The first version said a kept token pays
+  1 − the return and that the group account pays nothing; same payoffs, but not his wording.
+- **Rations, text:** residents read the timing as "claims come only from the morning's store" (at least 13 replies)
+  and proportional shares as fractions (14). The rules and the turn text now say claims are shared out of the store
+  plus the day's delivery, in whole rations, and that whatever is not claimed stays in the store.
+- **Rations, avoidable deaths:** the first definition (survivors held rations beyond all their remaining nights)
+  counted 0 of the pilot's 9 deaths, 5 of them on day 1 after others claimed 5 or 6 from a pool that could have fed
+  everyone. The new definition counts 7.
+- **Rations, over-claiming:** rations claimed and given away the same day no longer count as kept.
+
+The Public goods and Rations pilots and the probe were then run again under the new text; Name of the Game was
+unchanged and its pilot stands.
 
 ## Reasons (secondary)
 

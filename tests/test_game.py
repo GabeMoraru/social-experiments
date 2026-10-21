@@ -95,3 +95,24 @@ def test_day_one_claims_are_measured_per_expected_equal_share():
     for level in LEVELS:
         m = measure(play(0, level, fair), level)
         assert m['day1_claim_share'] == 6 / (START_STORE + MEAN_DELIVERY[level])  # one each, of a pool shared by six
+
+
+def test_a_death_counts_as_avoidable_when_claiming_nothing_would_have_prevented_it():
+    # day 1: one resident takes the whole pool and the rest, holding nothing, go hungry although the pool fed them all
+    for seed in SEEDS:
+        first = play(seed, 'exact', lone_grabber)[0]
+        assert len(first['died']) == 5
+        assert measure(play(seed, 'exact', lone_grabber), 'exact')['avoidable_deaths'] >= 5
+    # bad luck is not harm: claiming only tonight's ration never makes an avoidable death, even at Short
+    assert all(measure(play(s, 'short', fair), 'short')['avoidable_deaths'] == 0 for s in SEEDS)
+
+
+def test_rations_claimed_to_give_away_are_not_over_claimed():
+    # the first resident claims 3 and gives 2 of them to the next one at once, every day
+    def act_of(name, day, m):
+        if name == m['alive'][0]:
+            return act(3, [(m['alive'][1], 2)])
+        return act(0)
+
+    for seed in SEEDS:
+        assert measure(play(seed, 'plenty', scripted(act_of)), 'plenty')['over_claim_rate'] == 0
