@@ -1,15 +1,15 @@
 """The rules, as plain functions over plain data. Nothing here calls a model.
 
-Six residents share a storehouse for five days. Each morning a delivery arrives; each day every living resident
-claims rations and gives rations at the same time; each night every resident eats one of its own rations, or one
-from the storehouse, and a resident who gets neither dies.
+Six residents share a storehouse for five days. Each day every living resident claims rations and gives rations at
+the same time; then a delivery of uncertain size arrives and the claims are shared out of the storehouse; each night
+every resident eats one of its own rations, or one from the storehouse, and a resident who gets neither dies.
 """
 
 import random
 
 NAMES = ('Ada', 'Ben', 'Cal', 'Dev', 'Eli', 'Fay')
 DAYS = 5
-START_STORE = 6  # one night's food, so nobody can starve before the first messages are read
+START_STORE = 6  # one night's food: with the first delivery, nobody can starve before the first messages are read
 SPREAD = 2  # a delivery is its level's mean plus or minus up to SPREAD, each value equally likely
 MEAN_DELIVERY = {'plenty': 9, 'exact': 6, 'short': 4}
 LEVELS = tuple(MEAN_DELIVERY)
@@ -88,9 +88,9 @@ def play(seed, level, decide):
     store = START_STORE
     days = []
     for day, delivery in enumerate(deliveries(seed, level), start=1):
-        store += delivery
-        morning = {'day': day, 'delivery': delivery, 'store': store, 'held': dict(held), 'alive': list(alive)}
+        morning = {'day': day, 'store': store, 'held': dict(held), 'alive': list(alive)}
         acts = decide(day, morning, days)
+        store += delivery  # after the acts, so claims are made on a pool of uncertain size
         claims = {name: acts[name]['claim'] for name in alive}
         # each draw has its own seed, so paired games share their lots whatever happened on earlier days
         granted = split(store, claims, random.Random(f'split {seed} {day}'))
@@ -105,6 +105,7 @@ def play(seed, level, decide):
             morning
             | {
                 'acts': acts,
+                'delivery': delivery,
                 'granted': granted,
                 'gifts': gifts,
                 'at_night': at_night,

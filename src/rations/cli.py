@@ -3,7 +3,9 @@ for the project's ledger, which can never exceed the project's budget."""
 
 import argparse
 
-from rations import agents, game, judge, report, run
+from rations import goods, judge, label, report, run
+
+EXPERIMENTS = {'rations': run.run, 'label': label.run, 'goods': goods.run}
 
 
 def seeds(text):
@@ -16,14 +18,13 @@ def main():
     parser = argparse.ArgumentParser(prog='rations')
     commands = parser.add_subparsers(dest='command', required=True)
 
-    play = commands.add_parser('play', help='play games with model residents (paid)')
+    play = commands.add_parser('play', help='play every cell of one experiment for each seed (paid)')
+    play.add_argument('experiment', choices=EXPERIMENTS)
     play.add_argument('--tag', required=True, help='results/<tag>/ holds the recordings, e.g. pilot or main')
     play.add_argument('--seeds', type=seeds, required=True)
-    play.add_argument('--levels', nargs='+', choices=game.LEVELS, default=game.LEVELS)
-    play.add_argument('--framings', nargs='+', choices=agents.FRAMINGS, default=agents.FRAMINGS)
     play.add_argument('--cap', type=float, required=True)
 
-    probe = commands.add_parser('probe', help='check the model can do the game arithmetic (paid)')
+    probe = commands.add_parser('probe', help='check the model can do the Rations arithmetic (paid)')
     probe.add_argument('--reps', type=int, default=3)
     probe.add_argument('--cap', type=float, required=True)
 
@@ -36,13 +37,13 @@ def main():
     calibrate.add_argument('--tag', required=True)
     calibrate.add_argument('--sample', type=int, default=200)
 
-    results = commands.add_parser('report', help='rebuild tables and the chart from recordings (free)')
+    results = commands.add_parser('report', help='rebuild tables and charts from recordings (free)')
     results.add_argument('--tag', required=True)
 
     args = parser.parse_args()
     try:
         if args.command == 'play':
-            run.run(args.tag, args.seeds, args.levels, args.framings, args.cap)
+            EXPERIMENTS[args.experiment](args.tag, args.seeds, args.cap)
         elif args.command == 'probe':
             run.probe(args.reps, args.cap)
         elif args.command == 'judge':

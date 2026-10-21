@@ -7,22 +7,22 @@ from rations import agents, judge
 
 def test_calibration_reports_a_separable_question_and_drops_a_noisy_one(tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)  # results/ is relative
-    (tmp_path / 'results' / 't').mkdir(parents=True)
+    (tmp_path / 'results' / 't' / 'rations').mkdir(parents=True)
     calls, cache, verdicts, reference = [], [], [], []
     for i in range(80):
         text, positive = f'reasoning number {i}', i % 2 == 0
         calls.append({'resident': 'Ada', 'day': i, 'reply': [{'type': 'thinking', 'thinking': text}]})
         noise = 0.9 if i % 4 < 2 else 0.1  # unrelated to the label
         yes = {q: 0.1 for q in judge.QUESTIONS} | {'fairness': 0.9 if positive else 0.1, 'self_survival': noise}
-        cache.append({'digest': judge.digest(text), 'key': f'x/Ada/{i}', 'yes': yes})
+        cache.append({'digest': judge.digest(text), 'key': f'rations/x/Ada/{i}', 'yes': yes})
         luna = {q: False for q in judge.QUESTIONS} | {'fairness': positive, 'self_survival': i % 3 == 0}
-        verdicts.append({'digest': judge.digest(text), 'key': f'x/Ada/{i}', 'yes': luna})
+        verdicts.append({'digest': judge.digest(text), 'key': f'rations/x/Ada/{i}', 'yes': luna})
         labels = {q: 'no' for q in judge.QUESTIONS} | {
             'fairness': 'yes' if positive else 'no',
             'self_survival': 'yes' if i % 2 == 0 else 'no',
         }
         reference += [{'digest': judge.digest(text), 'pass': p, 'labels': labels} for p in (1, 2)]
-    (tmp_path / 'results' / 't' / 'x.json').write_text(json.dumps({'calls': calls}))
+    (tmp_path / 'results' / 't' / 'rations' / 'x.json').write_text(json.dumps({'calls': calls}))
     (tmp_path / 'results' / 'jev.jsonl').write_text(''.join(json.dumps(r) + '\n' for r in cache))
     (tmp_path / 'results' / 'luna.jsonl').write_text(''.join(json.dumps(r) + '\n' for r in verdicts))
     (tmp_path / 'results' / 'labels').mkdir()

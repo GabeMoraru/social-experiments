@@ -1,7 +1,8 @@
-"""The residents: one LangChain chat model per resident, one tool, and the text each resident reads.
+"""The residents: one LangChain chat model per resident with one tool, shared by every experiment, and the text
+residents of Rations read.
 
-Both framings fill the same template; only the nouns in FRAMES differ, so any difference between them comes from
-the story, not the rules. The text states facts and consequences only: it never tells a resident what to want.
+Both Rations framings fill the same template; only the nouns in FRAMES differ, so any difference between them comes
+from the story, not the rules. The text states facts and consequences only: it never tells a resident what to want.
 """
 
 from langchain_anthropic import ChatAnthropic
@@ -33,8 +34,8 @@ NOUNS = {
     'store': ('storehouse', 'bank'),
     'day': ('day', 'round'),
     'Day': ('Day', 'Round'),
-    'each_morning': ('Each morning', 'Each round'),
     'this_morning': ('This morning', 'This round'),
+    'todays': ("Today's", "This round's"),
     'next_morning': ('the next morning', 'the next round'),
     'each_night': ('Each night', 'At the end of each round'),
     'last_night': ('Last night', 'End of last round'),
@@ -52,15 +53,16 @@ FRAMINGS = tuple(FRAMES)
 
 RULES = """You are {me}, one of six {whos} in {setting}: {names}. It lasts {days} {day}s.
 
-The {store} starts with {start} {items}. {each_morning} it receives between {lo} and {hi} {items}, each amount \
-equally likely.
+The {store} starts with {start} {items}.
 
 Every {day}, all {whos} act at the same time, each using the act tool once:
 - say: one message to everyone, read {next_morning}. It may be empty.
-- claim: how many {items} to take from the {store}. If the claims add up to more than the {store} holds, it is \
-shared in proportion to the claims.
+- claim: how many {items} to take from the {store}.
 - give: {items} to other living {whos}, out of what you hold once today's claims are shared out (gifts \
 reaching you today cannot be passed on).
+
+Then the {store} receives between {lo} and {hi} {items}, each amount equally likely, and the claims are shared out \
+of what it holds: in full if they fit, otherwise in proportion to the claims.
 
 {each_night}, every {who} {eats} one {item}: one of their own if they hold any, otherwise one from the {store}, \
 given by lot if there are not enough. A {who} who gets none {dies}."""
@@ -106,12 +108,12 @@ def turn(frame, level, me, morning, days):
     lines = [
         f'{f["Day"]} {day} of {DAYS}. {f["nights"]} left, {f["tonight"]} included: {nights_left(day)}.',
         (
-            f'{f["this_morning"]} the {f["store"]} received {morning["delivery"]} {f["items"]} '
-            f'(deliveries are {lo}-{hi}). It now holds {morning["store"]}.'
+            f'{f["this_morning"]} the {f["store"]} holds {morning["store"]}. {f["todays"]} delivery, between {lo} '
+            f'and {hi} {f["items"]}, arrives after everyone acts.'
         ),
     ]
     if days:
-        past = ', '.join(str(d['delivery']) for d in days + [morning])
+        past = ', '.join(str(d['delivery']) for d in days)
         y = days[-1]
         lines.append(f'Deliveries so far: {past}.')
         lines.append(
@@ -135,9 +137,8 @@ def turn(frame, level, me, morning, days):
     need = nights_left(day)
     lines.append(f'Holdings (each {f["who"]} needs {need} to last):')
     for name in morning['alive']:
-        held = morning['held'][name]
         you = ' (you)' if name == me else ''
-        lines.append(f'- {name}{you}: holds {held}, short by {max(0, need - held)}')
+        lines.append(f'- {name}{you}: holds {morning["held"][name]}')
     lines += [f'- {name}: {f["died"]} on {f["day"]} {d["day"]}' for d in days for name in d['died']]
     return '\n'.join(lines)
 
@@ -179,19 +180,17 @@ def parse(reply):
 
 
 class Resident:
-    """One conversation, kept whole: each day appends the day's message and the reply, never editing either."""
+    """One conversation, kept whole: each turn appends the turn's message and the reply, never editing either."""
 
-    def __init__(self, model, frame, level, me, seating):
-        self.model = model.bind_tools([act_tool(frame)], parallel_tool_calls=False, cache_control={'type': 'ephemeral'})
-        self.frame, self.level, self.me = frame, level, me
-        self.messages = [SystemMessage(rules(frame, level, me, seating))]
+    def __init__(self, model, system, tool):
+        self.model = model.bind_tools([tool], parallel_tool_calls=False, cache_control={'type': 'ephemeral'})
+        self.messages = [SystemMessage(system)]
         self.open_call, self.result = None, None
 
-    def act(self, morning, days):
-        """Today's act and the record of the call."""
-        if self.open_call:  # the API needs a result for yesterday's tool call before today's message
+    def act(self, text, parse):
+        """The turn's act, read from the reply by parse, and the record of the call."""
+        if self.open_call:  # the API needs a result for the last tool call before the next message
             self.messages.append(ToolMessage(self.result, tool_call_id=self.open_call))
-        text = turn(self.frame, self.level, self.me, morning, days)
         self.messages.append(HumanMessage(text))
         reply = self.model.invoke(self.messages)
         self.messages.append(reply)
@@ -199,8 +198,6 @@ class Resident:
         act, problem = parse(reply)
         self.result = f'Not valid, so it counted as doing nothing: {problem}' if problem else 'Recorded.'
         record = {
-            'resident': self.me,
-            'day': morning['day'],
             'text': text,
             'reply': reply.content,
             'stop_reason': reply.response_metadata.get('stop_reason'),
@@ -209,3 +206,12 @@ class Resident:
             'problem': problem,
         }
         return act, record
+
+
+def one_call(reply, name, field, valid):
+    """The one field of a reply's single call to a one-field tool, or None and the reason it was invalid."""
+    calls = [c for c in reply.tool_calls if c['name'] == name]
+    if len(calls) != 1:
+        return None, f'{len(calls)} {name} calls'
+    value = calls[0]['args'].get(field)
+    return (value, None) if valid(value) else (None, f'bad {name} {calls[0]["args"]!r}')

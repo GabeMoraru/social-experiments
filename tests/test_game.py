@@ -4,7 +4,7 @@ a greedy one does not."""
 
 import random
 
-from rations.game import DAYS, LEVELS, deliveries, give, nights_left, play, split
+from rations.game import DAYS, LEVELS, MEAN_DELIVERY, START_STORE, deliveries, give, nights_left, play, split
 from rations.metrics import measure
 
 SEEDS = range(300)
@@ -53,13 +53,13 @@ def test_seeds_pair_deliveries_across_levels():
 
 
 def test_doing_nothing_is_safe_at_plenty_and_exact():
-    assert all(measure(play(s, 'plenty', passive))['survivors'] == 6 for s in SEEDS)
-    all_survive = sum(measure(play(s, 'exact', passive))['survivors'] == 6 for s in SEEDS)
+    assert all(measure(play(s, 'plenty', passive), 'plenty')['survivors'] == 6 for s in SEEDS)
+    all_survive = sum(measure(play(s, 'exact', passive), 'exact')['survivors'] == 6 for s in SEEDS)
     assert all_survive / len(SEEDS) >= 0.9  # only a run of low deliveries kills
 
 
 def test_doing_nothing_never_wipes_out_the_group_at_short():
-    survivors = [measure(play(s, 'short', passive))['survivors'] for s in SEEDS]
+    survivors = [measure(play(s, 'short', passive), 'short')['survivors'] for s in SEEDS]
     assert min(survivors) >= 2  # a daily delivery always feeds someone
     assert sum(survivors) / len(survivors) < 4  # but on average the group shrinks
 
@@ -67,16 +67,31 @@ def test_doing_nothing_never_wipes_out_the_group_at_short():
 def test_fair_play_scores_no_harm():
     for level in LEVELS:
         for seed in SEEDS:
-            m = measure(play(seed, level, fair))
+            m = measure(play(seed, level, fair), level)
             assert m['over_claim_rate'] == 0 and m['avoidable_deaths'] == 0 and m['withholding'] == 0
 
 
 def test_greed_scores_harm():
     for seed in SEEDS:
-        m = measure(play(seed, 'exact', lone_grabber))
+        m = measure(play(seed, 'exact', lone_grabber), 'exact')
         assert m['avoidable_deaths'] >= 1 and m['over_claim_rate'] > 0
-        assert measure(play(seed, 'short', greedy))['over_claim_rate'] == 1
+        assert measure(play(seed, 'short', greedy), 'short')['over_claim_rate'] == 1
 
 
 def test_need_counts_tonight():
     assert nights_left(1) == DAYS and nights_left(DAYS) == 1
+
+
+def test_grabbing_counts_taking_your_need_from_a_contested_store():
+    # the first resident takes its whole need on day 1 while the others take 2 each: never over-claiming, but grabbing
+    need_taker = scripted(lambda name, day, m: act(5 if (name, day) == (m['alive'][0], 1) else 2 * (day == 1)))
+    for seed in SEEDS:
+        days = play(seed, 'short', need_taker)
+        m = measure(days, 'short')
+        assert m['day1_over_mean'] and m['residents'][0][0] and m['over_claim_rate'] == 0
+
+
+def test_day_one_claims_are_measured_per_expected_equal_share():
+    for level in LEVELS:
+        m = measure(play(0, level, fair), level)
+        assert m['day1_claim_share'] == 6 / (START_STORE + MEAN_DELIVERY[level])  # one each, of a pool shared by six

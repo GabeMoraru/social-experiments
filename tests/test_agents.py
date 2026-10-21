@@ -3,6 +3,7 @@
 import re
 from types import SimpleNamespace
 
+from rations import goods, label
 from rations.agents import FRAMES, IDLE, parse, rules, turn
 from rations.game import LEVELS, NAMES, play
 
@@ -29,7 +30,8 @@ def test_parse_turns_invalid_output_into_doing_nothing():
         assert act == IDLE and problem
 
 
-def test_no_text_tells_a_resident_what_to_want():
+def every_text():
+    """Every text a resident of any experiment can read."""
     days = []
 
     def decide(day, morning, so_far):
@@ -39,6 +41,22 @@ def test_no_text_tells_a_resident_what_to_want():
     play(3, 'short', decide)
     for frame in FRAMES:
         for level in LEVELS:
-            texts = [rules(frame, level, 'Ada', NAMES)] + [turn(frame, level, 'Ada', m, d) for m, d in days]
-            for text in texts:
-                assert not re.search(r'\b(win|score|goal|should|try to|survive|want)\b', text, re.IGNORECASE)
+            yield rules(frame, level, 'Ada', NAMES)
+            yield from (turn(frame, level, 'Ada', m, d) for m, d in days)
+    yield from (label.instructions(name, opponent) for name in label.LABELS for opponent in label.OPPONENTS)
+    rounds = [dict.fromkeys(goods.SEATS, 5)] * goods.ROUNDS
+    for level, r in goods.RETURNS.items():
+        yield from (goods.instructions(level, wording) for wording in goods.WORDINGS)
+        yield from (goods.turn(n, '1', rounds[: n - 1], r) for n in range(1, goods.ROUNDS + 1))
+
+
+def test_no_text_tells_a_resident_what_to_want():
+    for text in every_text():
+        assert not re.search(r'\b(win|score|goal|should|try to|survive|want|maximi[sz]e)\b', text, re.IGNORECASE)
+
+
+def test_no_text_names_the_paradigm_or_says_the_others_are_copies():
+    for text in every_text():
+        assert not re.search(
+            r'public good|prisoner|dilemma|cooperat|free.?rid|commons|same model|cop(y|ies) of', text, re.IGNORECASE
+        )

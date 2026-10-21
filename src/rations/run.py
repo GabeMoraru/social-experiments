@@ -44,21 +44,45 @@ def check(cap):
         raise OverBudget(f'spent ${spent():.2f} of a ${limit:.2f} cap')
 
 
-def game_path(tag, seed, level, frame):
-    return RESULTS / tag / f'{level}-{frame}-{seed:03d}.json'
+def game_path(tag, experiment, cell, seed):
+    return RESULTS / tag / experiment / f'{"-".join(cell)}-{seed:03d}.json'
+
+
+def load(tag, experiment):
+    """Every recorded game of one experiment in a tag."""
+    return [json.loads(p.read_text()) for p in sorted((RESULTS / tag / experiment).glob('*.json'))]
+
+
+def record(path, cap, play, *args):
+    """Play one game, play(*args), unless it is already recorded, and write its recording. Returns whether the run
+    must stop."""
+    if path.exists():
+        return False
+    check(cap)
+    recording = play(*args)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(recording, indent=1))
+    error = recording['error']
+    print(
+        f'{path.parent.name}/{path.name}: {recording["status"]}, ${recording["usd"]:.4f}, total ${spent():.2f}'
+        + (f' ({error})' if error else '')
+    )
+    return bool(error) and error.startswith(('OverBudget', 'KeyboardInterrupt'))
 
 
 def play_game(seed, level, frame, cap, model):
     """Play one game with six model residents and return its recording."""
     seats = game.seating(seed)
-    residents = {name: agents.Resident(model, frame, level, name, seats) for name in seats}
+    residents = {
+        name: agents.Resident(model, agents.rules(frame, level, name, seats), agents.act_tool(frame)) for name in seats
+    }
     calls, progress = [], {}
     label = f'{level}-{frame}-{seed:03d}'
 
     def one(name, morning, days):
-        act, record = residents[name].act(morning, days)
+        act, record = residents[name].act(agents.turn(frame, level, name, morning, days), agents.parse)
         charge(label, record['usd'])
-        calls.append(record)
+        calls.append({'resident': name, 'day': morning['day']} | record)
         return act
 
     def decide(day, morning, days):
@@ -69,6 +93,7 @@ def play_game(seed, level, frame, cap, model):
         return dict(zip(morning['alive'], acts))
 
     recording = {
+        'experiment': 'rations',
         'seed': seed,
         'level': level,
         'framing': frame,
@@ -91,25 +116,14 @@ def play_game(seed, level, frame, cap, model):
     }
 
 
-def run(tag, seeds, levels, frames, cap):
-    """Play every cell for each seed, seed by seed so pairs complete together. Recorded games are skipped."""
+def run(tag, seeds, cap):
+    """Play every Rations cell for each seed, seed by seed so pairs complete together. Recorded games are skipped."""
     model = agents.chat()
     for seed in seeds:
-        for level in levels:
-            for frame in frames:
-                path = game_path(tag, seed, level, frame)
-                if path.exists():
-                    continue
-                check(cap)
-                recording = play_game(seed, level, frame, cap, model)
-                path.parent.mkdir(parents=True, exist_ok=True)
-                path.write_text(json.dumps(recording, indent=1))
-                deaths = sum(len(d['died']) for d in recording['days'])
-                print(
-                    f'{path.name}: {recording["status"]}, {deaths} deaths, ${recording["usd"]:.4f}, '
-                    f'total ${spent():.2f}' + (f' ({recording["error"]})' if recording['error'] else '')
-                )
-                if recording['error'] and recording['error'].startswith(('OverBudget', 'KeyboardInterrupt')):
+        for level in game.LEVELS:
+            for frame in agents.FRAMINGS:
+                path = game_path(tag, 'rations', (level, frame), seed)
+                if record(path, cap, play_game, seed, level, frame, cap, model):
                     return
 
 
