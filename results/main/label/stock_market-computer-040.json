@@ -1,0 +1,120 @@
+{
+ "experiment": "label",
+ "seed": 40,
+ "label": "stock_market",
+ "opponent": "computer",
+ "model": "claude-haiku-5-5",
+ "settings": {
+  "max_tokens": 16000,
+  "thinking": {
+   "type": "adaptive",
+   "display": "summarized",
+   "block_binding": {
+    "prefix_mismatch_behavior": "error"
+   }
+  },
+  "betas": [
+   "thinking-binding-controls-2026-08-01"
+  ],
+  "output_config": {
+   "effort": "medium"
+  }
+ },
+ "text": "You are taking part in the Stock Market Game. You get points, and how many depends on the choices made.\n\nIn the Stock Market Game you are paired with a computer. A receiver is connected to the computer: another participant, who makes no choice and gets the points the computer is allotted. The receiver does not learn which game was played, or how you or the computer chose.\n\nThe computer chooses like this: the Stock Market Game is also played between two participants, and the computer chooses A as often as they did, to imitate a participant.\n\nYou and the computer choose at the same time between A and B. In the Stock Market Game:\n- If you choose A and the computer chooses A, you get 50 points and the receiver gets 50.\n- If you choose B and the computer chooses B, you get 20 points and the receiver gets 20.\n- If you choose A and the computer chooses B, you get 5 points and the receiver gets 80.\n- If you choose B and the computer chooses A, you get 80 points and the receiver gets 5.\n\nYou will not know anything about the choice of the computer when you make yours. Give your choice with the choose tool.",
+ "computer_rate": 0.18333333333333332,
+ "computer": {
+  "1": "B",
+  "2": "B"
+ },
+ "status": "complete",
+ "error": null,
+ "usd": 0.0002599,
+ "choices": {
+  "1": "B",
+  "2": "B"
+ },
+ "calls": [
+  {
+   "resident": "1",
+   "day": 1,
+   "text": "Choose A or B.",
+   "reply": [
+    {
+     "signature": "CAQSkggKEAgTGAI4AUIIdGhpbmtpbmcSDJbJSWlFq0HNWNptNRoM0QDQCOsX28BLq8HYIjAT4l0Xq+USsSS+1aQ8QcwUE6YPyC2SKfxZPig/VVqg5iy2xpvspS4qgGcS93XY3o4qrwfSQvht7DdgnuaScAFvmrnynLDATInkHHV0Yal55GvMu8VanZP6n3gMrHREtGVmKQtzJn5DGle/cA+9Jc+8U7z/41pn8NB+bGpb8kWVNH7OKTGVw4WX6rafQSqugs0b4JDGz2oI4Fb9uKl/0m8DHvijOlv1fgIqaE3bLI/04wK+3iUVnscCUEUPQ32OptE7h/Wqm19g+9BvXwwtq64CT6swq725scd+VvqqikR7dFLLqBL68Jr6fXdnrICKv+hx/pUlHvuULq2F9SQ1fK679vYhvuojJ1GDECing+92ORBPsF45dV7k9e6vTrCJmwtUcEzLFHMAIzrdlTQaSE6GDoYVOwDKLEKYCqjOcS6c19DBSXHtacR5o8/0jAns7krWRuva2Mp4Rim5Mgy7IIrfUKIBxb/sGqzjLllDjQF+8JDy/sLw3+9Xumzc2u3OLPFCO+rleBNKQaxn68Jlp76NZe5B22wxmBJuEqtNjnKpfIWreZouvqE24DdWdPTa/8MTCDvu7EHLybmwLhTvoysGDUhQQKvnXzB8GThxR7f1+mln9xpJ++ugruklCgaZkHmUglnyXNOII5BbVzjfbzPcr5/H2j8vk9OGNKbDuxcYTeaTtTl+B6Er8FNvuK6hCzA5/ZYfrWdD8COZBkZMmF0OG1fYQN/pW+8UUca4v+H/C7e2BYTKTKeFNeRR9bu4r91h/nfWhNE+OaYRMnMANnTCcpVlex+blp4wyxLXh/5PqVwmHPYxRLc3oylETkTqkDCqzc+FEC9gJY+BCjLW92UhqJ3ujeXPwu9o3Vfu36rplKNH6k9NUp+4JcH6OOpn94XdDoXUWAfEkLhz5LKetqPtkYtMnOJZMCCm8M+OaSsI+UmVjKWi5XD7hHh/CwgfMuNNDJXldyE0VPqKweJtFlc6P2Ehb0CSkhJjwHNxy+/IOeNtsu6hjyrwGaZSu5KxXmK6fZyTptCKnnod7lB6iOxgfz2iEdfkV+XYHxvxp5Jz+gelYe8GwPPck1u2OW9CvbOzX+6fgVUiZWAhZ9gNleCTErHHQDh48uWYWTV4n/ln0KH1uSL6++IZKTT9F7K6a4oOGBXWjK87EzxmFLx5XNGV/RX1as5+Kx7aSZvg3HCLyI+YBdlJ3Y9+tjQRpMKkSc+9FG9UiIEOS1YMPDtQcX3pLFboQY4B/Pq5/nWFODKQEWwcTB9dRtXfrvxsQPQEr1IsksUvNNJEVS0EszRVTwRPkMbWmMNttM41m3PNTVvJ7CXtGAE=",
+     "thinking": "I'm working out the payoff matrix here: against computer A, B yields 80 versus A's 50, so B looks better; I still need to check the case where computer plays B, comparing 5 versus the B/B payoff of 20 to see if B dominates overall.\n\n",
+     "type": "thinking"
+    },
+    {
+     "id": "toolu_016NqpWy1Gxrm423X2LyK9yv",
+     "input": {
+      "choice": "B"
+     },
+     "name": "choose",
+     "type": "tool_use",
+     "caller": {
+      "type": "direct"
+     },
+     "toolset_name": null
+    }
+   ],
+   "stop_reason": "tool_use",
+   "usage": {
+    "input_tokens": 734,
+    "output_tokens": 225,
+    "total_tokens": 959,
+    "input_token_details": {
+     "cache_read": 730,
+     "cache_creation": 0,
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_token_details": {
+     "reasoning": 179
+    }
+   },
+   "usd": 0.00012020000000000001,
+   "problem": null
+  },
+  {
+   "resident": "2",
+   "day": 1,
+   "text": "Choose A or B.",
+   "reply": [
+    {
+     "signature": "CAQSiAkKEAgTGAI4AUIIdGhpbmtpbmcSDFClzTgSNr8L3mkQPRoMN6p94GYOMjzIw0iXIjCBBMcekB6iDSbhFrOg/K0EstQjKCS3l9wy39oUrx9i8Bpqzz6xBjZQYegimX/VMmYqpQhtfRyjQaV176g3yg1wL/zf40PJiRW9leHimFpGHO5KaMAtIK5Vc4MCZQfkDLWvsFPv7//HFvq4yQ1HOajl2XzMUyXYoOxuiGCsuAWChea9aL0nwXgxBZt4K0PUISFIJjGidBBMoh5J39q47nyzqYn0HDY193UVVoaKbpfyoFhyWYOeul6M13FeqCIaFOrFrJ9czrw2an49iNKoMvsuv087wk2ae3HOf6z1DlSn1piIcZ/Sv0CUzhPIHgqyaljRNqmD8q7/4MvBkFf0xj1JsQhzs6dLALc6ISMdwsVRf4SevumKL+L8ABOy1UFpFETam2tSxt+GgLc8KiD1BktYzP9DdGOTxa69MnrtSSDZbuLLSsEAnC/Tnd9i23Cy+cyU1+gb21Vclz7QipOuh8TF0XijHeMK0HySwMhbaegPfN0KvXRaUL78TpxN7Um4TOahLzzdFREKfvDPGN5jyh9ohVRrOHpdfL/6vR4zBrI/nrqeLoxENVgILvFp6MHwiEGXYm1zLP6sfQmHnsWLpzgkmCmUXNKec4paVoKGdZY3HF03gXg+STKKMSN6S6PhzQGNjclyDLnh16w10ab2nx38dSGnucmUYsWp7Y1+LmHZ+25+WlNLcz3fVkDnNGFSDh6Hg67k9fVyXFGk3Ci03/nvJaRrRU80K1eKRFM3uQ2oBeApmitmEemf7Q5HMLwl8kOElXAcAP44FWZETMEiMzn3PW9Aqg9fIXCdxoirce46Cu3B51ects6b5ueAr1rf5tFN3M5N9fUHKHxFpLbyiLP5Ae5AFwDbwuJnpRkM2zVyJk0V57d/v7huQbEOP1702Fa0nguingmN62G8jcso6vhjHpMwhAG5s2FJOMWqfoUvY8gaJEByQB7Rus09a0MK3+f+cMXvmJZ7qkdcmGX15U47QwFWnmRY7AFnq5PDSYZq/Nfx3CTSoEBoAYurWKzOy4qe/CbHd23R5bMRP4FiCWWCDWFH5xuHWRM2QYJCYDzGrgSk0bcXkINQccqeri9/6xEcpTz5D3eFnP4Xt42IPl32gGWrXchyZC49conBXjDUo17D/dwfCCPFIwswVipFKqgFy2sHPkmgFIk8AZjteJ/OB0si8ecKdBWRsm7fHEWLxc4fNSIrj+cx+1fj6kdUT1H8cvCNJFNi102vPpA+crlk8YdJcXbJj4raqSikYR53tHN+WPOLvS03QEC19/X3Vqppo96TBbwB9TYp+PDv2ybDz4Sv8RpWq6RaJ8DDmRF5VsmSIhPNXSbr/22vb/snDoGzG5t4Ma302ZHS8aO7fxU1uxhlUDBSnGxL6Dzm8gUpYCI+12p79MxwxDGYB61NxPZPPZvb2Jk8O0o0e9SFe+kVSrOIB2tcjC1vHFjAV7WmTomUryYrIr6S0RjuYQCmIgSUwP0TdmOoORgB",
+     "thinking": "I'm working through the payoff structure of this game \u2014 comparing my outcomes for A vs A, B vs B, A vs B, and B vs A to see whether B dominates A as a strategy regardless of what the computer chooses.\n\n",
+     "type": "thinking"
+    },
+    {
+     "id": "toolu_01BprQSokjRQ9q3xvcWMTWPr",
+     "input": {
+      "choice": "B"
+     },
+     "name": "choose",
+     "type": "tool_use",
+     "caller": {
+      "type": "direct"
+     },
+     "toolset_name": null
+    }
+   ],
+   "stop_reason": "tool_use",
+   "usage": {
+    "input_tokens": 734,
+    "output_tokens": 264,
+    "total_tokens": 998,
+    "input_token_details": {
+     "cache_read": 730,
+     "cache_creation": 0,
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_token_details": {
+     "reasoning": 218
+    }
+   },
+   "usd": 0.00013969999999999998,
+   "problem": null
+  }
+ ]
+}

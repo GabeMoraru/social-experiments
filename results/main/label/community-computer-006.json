@@ -1,0 +1,120 @@
+{
+ "experiment": "label",
+ "seed": 6,
+ "label": "community",
+ "opponent": "computer",
+ "model": "claude-haiku-5-5",
+ "settings": {
+  "max_tokens": 16000,
+  "thinking": {
+   "type": "adaptive",
+   "display": "summarized",
+   "block_binding": {
+    "prefix_mismatch_behavior": "error"
+   }
+  },
+  "betas": [
+   "thinking-binding-controls-2026-08-01"
+  ],
+  "output_config": {
+   "effort": "medium"
+  }
+ },
+ "text": "You are taking part in the Community Game. You get points, and how many depends on the choices made.\n\nIn the Community Game you are paired with a computer. A receiver is connected to the computer: another participant, who makes no choice and gets the points the computer is allotted. The receiver does not learn which game was played, or how you or the computer chose.\n\nThe computer chooses like this: the Community Game is also played between two participants, and the computer chooses A as often as they did, to imitate a participant.\n\nYou and the computer choose at the same time between A and B. In the Community Game:\n- If you choose A and the computer chooses A, you get 50 points and the receiver gets 50.\n- If you choose B and the computer chooses B, you get 20 points and the receiver gets 20.\n- If you choose A and the computer chooses B, you get 5 points and the receiver gets 80.\n- If you choose B and the computer chooses A, you get 80 points and the receiver gets 5.\n\nYou will not know anything about the choice of the computer when you make yours. Give your choice with the choose tool.",
+ "computer_rate": 0.975,
+ "computer": {
+  "1": "A",
+  "2": "A"
+ },
+ "status": "complete",
+ "error": null,
+ "usd": 0.00024816,
+ "choices": {
+  "1": "B",
+  "2": "B"
+ },
+ "calls": [
+  {
+   "resident": "1",
+   "day": 1,
+   "text": "Choose A or B.",
+   "reply": [
+    {
+     "signature": "CAQShwkKEAgTGAI4AUIIdGhpbmtpbmcSDN1FgFohXzX0MT4ldhoMhD60TisWGQHgOmh2IjAxqgpdnLOLAcQdV3Z/PzkmuwPLTjvRkyTFZGLFHcbIIU2HIvIWsCi2MoG49ObR3P8qpAhTKXjqi1NUYDRyOF8fnICvQbW1tO+lxOeXU9Mf8yexsqMCVp8SXfioNCM/uevl1rgvZouKf40nOBOpOVyoczu/1KPv7n8f1yidYwlDF8QB5gIVe+wUlqAfg1rVtea/urV6zxu7A7oOQyoRpT2waFNevPtBsdCvGkhT3LiRQxijUk9irV8+VWnD4+XT7gKleRUY3GgdGmrmq6zkU+LML0BzZ8CrRy5ytWDNzxz2nr8C7cgwVza1cPy1StM7F3uVkn11dkvCSTcT/93qp0Sc6CY8mj3RTXNeQ5cINmeCPvvLxTbPaUBWEMu7QDRcWjHclRQgMgYMPKu6UEtB9aRk7lRCu13OBiY2RpYwiS1L27FGJKNg5CwENDFoSKiWmLHSGAeJEl4Jg0CUK5ALDItuOozMoWKewAyU+SZewoQNysyPx+bouhLGedXOiRS4nSxIWlML83PM4qj7092qVq46FvX6/OoJasZxAxEaUivcF9xAglhArUsEAZEDbFsKpd+6hAfjoXL2u0iEJXLgOqPjfX4YgdaXQg8hK/d2gctj9XXo/Gz4P+T7CKVFKkwVLzeAn0vzUd2ZtgcfPFhNniQoAhUce3dbqa1ochQ6sbErQsttMaG58LB1w/ilG2dyC2MVseX47eNB9sT9JBrcb8bcM7uRGzeQFKI/JGKZNj/XFi/yWIxlof3MvFHB7zVn/QT1pgdXxlqWPjKMlHcw+i9EDWLnqJ65ZDYhorzUWQmlhpZA9/eSDidVB8a4UP+mzHdwARXDZQkTrDsH6LLz3NfPeKiBisTSqnwLYhK/GLv45n67ICa5m5sPyOZePTrNfCt9YQbwUBvZZHyEwOX71PhMblrWk2KveyfxYlgmBQQntI4b0h5EYofAfmzOAHVzdlLghAylh7ujYGP9S7RpXM8BQoG8M2gUuhrO4EGDc+y3IzPDyd/zkQahGz5e+XmgNMIo/l88UyQ8Hz+ByKpnmE683ncr0iu7SEgMilf2pp2aTdtGU+2rVXP3RarI7pixhUU+msuqARqFSQ2byld9qo30mmbXfymEGWeTL6fDZYsrV4b5DR3E2FaKLOQszMaQD2aaCE+ND6d394c32JrEgrkLMzcR8ffFm/od4ba5SpXFcqfLkkfvNBiRAEB02j25e92aZSdS6gEiY91ON71RQsSzGRgCei+XCgWhwO4gPVEDteU00ACZUK0BDJ4+IMPBU+Sj0yoR4vGQploo4fbHb4y6c/NG4QGglQ/D95suF2xUKIeTwTd+ALx0HZA3b1ARVh5raq7btAQ5k2FIbGohNYemrUCIPDmUcWdNeo6tZn15cyeW5wXQ+M1+0Urg0nECJutXDgvw8jEK0JiUAiut20Ej+2ncp5LvEOgdnaPF7rsu7jxlzwmEjObdxutL2FIW2ViZLWUr46+qGAE=",
+     "thinking": "The computer mimics participants' actual choice frequency for A, so its probability of choosing A equals the unknown base rate p. Working out my expected payoffs: choosing A gives 5+45p, while choosing B gives a flat 20 regardless of p since 80p+20(1-p) simplifies to 20.\n\nActually comparing them, B beats A for every value of p since it's always 15+15p higher. B dominates no matter what the computer does, so B is the clear choice.\n\n",
+     "type": "thinking"
+    },
+    {
+     "id": "toolu_01E5kkQb1fERZJnwdyQZ1xaa",
+     "input": {
+      "choice": "B"
+     },
+     "name": "choose",
+     "type": "tool_use",
+     "caller": {
+      "type": "direct"
+     },
+     "toolset_name": null
+    }
+   ],
+   "stop_reason": "tool_use",
+   "usage": {
+    "input_tokens": 722,
+    "output_tokens": 275,
+    "total_tokens": 997,
+    "input_token_details": {
+     "cache_read": 718,
+     "cache_creation": 0,
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_token_details": {
+     "reasoning": 229
+    }
+   },
+   "usd": 0.00014508000000000001,
+   "problem": null
+  },
+  {
+   "resident": "2",
+   "day": 1,
+   "text": "Choose A or B.",
+   "reply": [
+    {
+     "signature": "CAQStwcKEAgTGAI4AUIIdGhpbmtpbmcSDMqvEOcuZX1IQPHKrBoMHzRq7ZDOacCV6kzWIjC8GaotoALnlGAbyVr5OThjL4rAWuX4RtwsvWQX8Xt82ZHwcSpt4D+9l3L+j+Ce1PIq1AYsxWFzmSzQ/j2hx5gwCT+MMQwRwZj0i/yi6djyX+z4p4J5l2o6WHqD5dToA7NBFhgxShSXJc3CdmHr26ZGo8nGWRPR+qBRyUtoVKVX3+ry74Qm8YZqsIl/prxG6W7N6YVel4+IrN+l+MAJEXP8A3dhIOltvhTpXxRcO4Eb2OTH1nkLy12AA0l7neSVM98THr3mbTUv8RkkiFEeIvqL+yJzfBSSP8ujk5aHFozZv/7oxxKycT8S2TjMnmSgX8FrWf6j7n0bvANJUrZjbA56ZqNEk4918hkpVQ5DvZO3Nb8z5uhAPkoUjy0Dzgv9/KRqKj0xVExVwN5/cFVfvIiEURipdOyAcBsYv1fWT4/+VuLiuiXj2c/LJsbR5jhUd8RxCl9gjYjP9Ti7N0ApSP6xAMGvpbjpheV8MuJ0b/7dS4Gt3DHKzeU8gtK0v4B13giylzUjiMMOfvS4l/7h5WVLmXFPdZMrKnzT7gOXGru4RprMSCkQFmuvt9VRyT+Ebbt1Gue917gt0HaH3CpFubjSS3ZqfzrHca0G812bs+yU2aYwJzuF1+N3ZWKA3+Nfxnz/llpfgVyTPFVvBD7LUjM9hkq13egWVsBKrOvfgY6wkE6tmnwVj62aKiMHiHPuA1KlZnEcCArqfkc9IyLYVVg+cBnPWQwVeSsd1SENh4rMOr5fwAHN05Q5XY+cJP2UaaofxV9AL5yoKJrfykB7plTZLzSLXVQFKPqDEJZ7LQ4dBmDYxLMFJtow/yOpfZPafvyswHQSgt1ba/KrcdMU0Q034m1eluCxTyrTg1eu6VdfwXmmXyozQowh91OnMxd5u8JMCzFz41xr9MvWNyrfYD759EfsC/jIu97lx8/eJIIw0TEa9GWMAxVSaOBzusoc8mam7DcLaTe1oFL/cplJdcrwCJoh0Z5h34P8LxRx6wFPNVE/VbtGcP16NNjBYzU0fvaU8GBh084ekxPjekb/hCAAsJYylYXX0leHPsgMF5POcI2v3cgs1YECBsVc80Mua9dAsHWvjdyWPkHYtxc70x3HUf4tHQJv9OI5sb8GxbVtc/GxTPsJatj+XDdl7LwrFPFMR8MDudWoT03gglRvXcECqQaqKvIkPA7AsIIy2yTV0yVO6j9FzjQYAQ==",
+     "thinking": "Checking the payoff matrix against both possible computer moves, B wins either way\u201480 beats 50 if the computer plays A, and 20 beats 5 if it plays B. So B strictly dominates, and that's my choice.\n\n",
+     "type": "thinking"
+    },
+    {
+     "id": "toolu_01H6y9oEn6oXaXNSeKdU3Lw3",
+     "input": {
+      "choice": "B"
+     },
+     "name": "choose",
+     "type": "tool_use",
+     "caller": {
+      "type": "direct"
+     },
+     "toolset_name": null
+    }
+   ],
+   "stop_reason": "tool_use",
+   "usage": {
+    "input_tokens": 722,
+    "output_tokens": 191,
+    "total_tokens": 913,
+    "input_token_details": {
+     "cache_read": 718,
+     "cache_creation": 0,
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_token_details": {
+     "reasoning": 145
+    }
+   },
+   "usd": 0.00010308,
+   "problem": null
+  }
+ ]
+}

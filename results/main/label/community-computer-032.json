@@ -1,0 +1,120 @@
+{
+ "experiment": "label",
+ "seed": 32,
+ "label": "community",
+ "opponent": "computer",
+ "model": "claude-haiku-5-5",
+ "settings": {
+  "max_tokens": 16000,
+  "thinking": {
+   "type": "adaptive",
+   "display": "summarized",
+   "block_binding": {
+    "prefix_mismatch_behavior": "error"
+   }
+  },
+  "betas": [
+   "thinking-binding-controls-2026-08-01"
+  ],
+  "output_config": {
+   "effort": "medium"
+  }
+ },
+ "text": "You are taking part in the Community Game. You get points, and how many depends on the choices made.\n\nIn the Community Game you are paired with a computer. A receiver is connected to the computer: another participant, who makes no choice and gets the points the computer is allotted. The receiver does not learn which game was played, or how you or the computer chose.\n\nThe computer chooses like this: the Community Game is also played between two participants, and the computer chooses A as often as they did, to imitate a participant.\n\nYou and the computer choose at the same time between A and B. In the Community Game:\n- If you choose A and the computer chooses A, you get 50 points and the receiver gets 50.\n- If you choose B and the computer chooses B, you get 20 points and the receiver gets 20.\n- If you choose A and the computer chooses B, you get 5 points and the receiver gets 80.\n- If you choose B and the computer chooses A, you get 80 points and the receiver gets 5.\n\nYou will not know anything about the choice of the computer when you make yours. Give your choice with the choose tool.",
+ "computer_rate": 0.975,
+ "computer": {
+  "1": "B",
+  "2": "A"
+ },
+ "status": "complete",
+ "error": null,
+ "usd": 0.00026466,
+ "choices": {
+  "1": "B",
+  "2": "B"
+ },
+ "calls": [
+  {
+   "resident": "1",
+   "day": 1,
+   "text": "Choose A or B.",
+   "reply": [
+    {
+     "signature": "CAQS4wgKEAgTGAI4AUIIdGhpbmtpbmcSDIgjV63LFg/V2a9yZRoMIJHwlccfabsTjRgxIjAhYdlI/YwgEm0+bxotCa1Kg9DT56FruDdicnRsgjEBNDaC2CHKzHPx+67ObIgjetMqgAh1bK3wl27UiMxcTC1QqBmQh0HieW45z2Kh22LvGIvnzm1ej55/7IGKWs4fBi1+GiAfsjfbhhucsj60w6+ouYPLd4y2Sw88ahhJ+U7UjlFmb+gfP0keVOP2/cRHrK5ETxCBrBoXdzaXMn9TzxVSvN5NSYctSnrUEDOMVa2jm73LW0FlpnOSqmjlZjPOpH+OXkUu+or5Y6tglLb/wA0rvKy0R0TDBYA5hjK10V2LJ4u0TznFvwhdRrJqg5Ln0d6vdoqSdaE2m31oxxq0PttIWAOQpfoU2jHZ5S08L5XuWcJV6yFC2kgX9saM83xIkbYaMLlJwEWdAGVUOzs4Ufka1FTFIuHLaPAR0+GHH/D+fWNvcFR3BedhrHbJefdD8R027pS6qpX5JdFYpNHnh3zM6Ypw9WOPshCRc1ss7Ogyg9YzssLwtmI8CyN2aFIhteVCSdWY1M7KnChQB+axQr7BKFYST3gLnqMaIJK0wibhqELeykoJVvTO2VT7xF2Sl8weBi0smOiE0N7h1dcId9I2jjAOLR2IcGc6HeHMm68ZNCEWN4RzNSmKlfqja3Q2/P+jcknmZtcBWlXDDmCpGetVL0fk2tDR3fD8/bUHdrT2Sq6NUWJjZZ72vaBddvQ4jSmgZTaUrkDmM0Q29ANGa7RoVuJsD3CVkkGdGpRoiN0qI+HSY22UrMef0zsmpwSkWBNyALgszfTbKArUamxpg0wdTwbD2W3EZLzNYC62PMupDuN4qqnFYTrKwS2WF/8MN8+Qk8v03lx+TkfplTp9PLGDyLDIOLlxM8hJsYn7MBhMa5Wv+W5anuDelxTTqt6Cn+1gu0h8oXWs3oFN6q8w56y3cTKe/iF3W+uDLXvWjsLw/lnEPfRpN5oBgWS7DF0L959mko0zoDrSMnnmjsYFovWLjH5kvP229WZQIChUv1bVOEUyJT9IIGwBmyAln9SX+jOMbBfjmGjp0lTNlzoOmccjAzzWUEjLA3oxOZPKH7OKAsADq6JI56WZoKrrm3f+Zjemf2XUZOSq1crVpm3Oil+UkUUD3AIDq0AUmDpg35VKspbZScgAL/OzBw20Jo7iX0R8OBmJcVup7hj/uRJru7xkrl6fEilYFG8NRkLDN0sqDkbEeYrYjrGFJibWrr5Dp4bIV0qXM/8ObndOm1qu517coEADaO7eEiuKk/jR0BM0+0SazODqf7XLmdGU7eN91DIZRf3vbq2V3gpVXUTfRQ+uauRejAEhd1pP5jvWQSKZ/90Vy3pKvQITAokbqaO/Gdmn0YYa+CcB0lIpZq+LPT434neubAI2XpnzeWw6MYJDqTdEd2b3OTdZ1N9f7tFVsPDRMSzZjXEnl0DvgxRUV0eNzNnyGAE=",
+     "thinking": "This setup is self-referential since the computer mimics participant choices, and I don't know the actual base rate. Given the payoff structure\u2014A/A 50, B/B 20, A/B 5, B/A 80\u2014I'm working out expected values for each of my choices depending on the probability p that the computer plays A, comparing 50p+5(1-p) against 80p+20(1-p) to find my best response.\n\n",
+     "type": "thinking"
+    },
+    {
+     "id": "toolu_01Rp5ZxHXyvJ4YEQBo9wokjA",
+     "input": {
+      "choice": "B"
+     },
+     "name": "choose",
+     "type": "tool_use",
+     "caller": {
+      "type": "direct"
+     },
+     "toolset_name": null
+    }
+   ],
+   "stop_reason": "tool_use",
+   "usage": {
+    "input_tokens": 722,
+    "output_tokens": 266,
+    "total_tokens": 988,
+    "input_token_details": {
+     "cache_read": 718,
+     "cache_creation": 0,
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_token_details": {
+     "reasoning": 220
+    }
+   },
+   "usd": 0.00014058,
+   "problem": null
+  },
+  {
+   "resident": "2",
+   "day": 1,
+   "text": "Choose A or B.",
+   "reply": [
+    {
+     "signature": "CAQSxAgKEAgTGAI4AUIIdGhpbmtpbmcSDNFqP4ScavzfKgMqIRoM31mQxFbyg8c0mSUyIjBK/YgUzUHiyGfFvcmrcpiyWOaxbC/1RBH5JpgWgvy6BFq4WO0zAiiAXhWicyyOv88q4QestZUL/EtE8xQzHo5EcoAEM6TSY0rR6GLUD2vw5rzmiuxHZM2InXCMfAHvtoSM6de5HQzj5WXgjLIajuatp4NN01+dx7GC0MFzI3gW+ixtwau68mWYA+SqtGoBgyZ4HqOKsvLe/j94mn5qtNSnTwDmi99WaZbgfo8gmnzkheeZP3b8SEOWldrrgCiVU6xy5tStg/Ql3ruju49amx1NAUQVS2VjUrvw3nZGYkzj3p4i1iD0IeEGAOIjD5kAkXI9e9l4fFLch9UQBvzvRHXCyxjkLsQVTjL5qRlyvXv1kpMTwD4jAcsBHFrbWXFOS/JWkdR0cWP3BVyWttcm/uQiE/JYc5xHSpjQ2HeDtlbvDTbwMJkeudvIM/rLXL0h67Cjv6uPT5NjJxuQp+gGyPXnbWSJbFmUuu1jjJ+X54lFsGaPpG2FRTgILEI3wW2wXEcg9vvthWkFtQeefwBoP8JY6n+CCvj4pmSVnyl+xJatFflVPbdZC2kb5RsHEffDSqYXbuGuunPa8gMrgpTi0ncWtrnjTe55fOyAKygRvh3eX4CZNpRM90jx1dbvFGFp9PiNnlVn+883IHSC7GEJbJcnpB6H7/FckN40DQaSz2ZeDQimAjfQM2i2gmQSGbt9wyS+741CWJdlIEGIS0WP45KwtfL4u7O7Av9PElof8Zl1+WcbJYWD7u9YbRwhDgdxwMu1ZE+DQFEje9g8ZNy8NLOsqXGY49jrEC7cb19oOHY+EX43ysG16oGp1W6wRfZuU11l7XlvVbZix8pKwcrYUt70I2A+KwQD4afO7PBIhoWVKBNDEC5lw8yB6GZ3fBVOqtXExU1oXHR88DUKeS1gzOSzhwzVemUva+KZ/Ptc54AyL0LQiEd4xp5xcJ8hIk6QJPp70N3nAvP1vkVk561XBWxRYcqGA1+oL9LtneOVIu0QHM7kNtojENKcB4RUD+tnrOpWbs5hfFe8EERBnKtc1eO/tvlJOb69iRjRj3yOsbgh+y0lURxCu52hsDLsAeZqTIVZ78i0av9qrzq0lL0U4jP1jbe3mtYgVwi/mq7iW8A10psEokBDSBmlSmUiXPyJa9VBDiMj3m/m8NEIebdnOX4evB+vHdx/bY4nSIVWL5CSBNX+/1QBQW50Vc8OUtBOu+wE/APXL4KDKH595DizM0tE6/NpIrjpNeIZefduzVyJeroCzbQHP0AqCG9glNNuD2v45LmJbD54RKwJrX+k0jwWrdBA4N3BfQtNC6La8inh5yWcGOv1IgxXW5qp1qS2F1U1ZcmI85TsQRHfUMD9Tetf6JywfxGzYNBhk4kMfPmELGBzuSYYAQ==",
+     "thinking": "Checking the payoffs, B gives me 80 against A and 20 against B, while A only gives 50 and 5 respectively\u2014so B strictly dominates regardless of what the computer plays, making it the clear choice for maximizing my points.\n\n",
+     "type": "thinking"
+    },
+    {
+     "id": "toolu_01JD6g5vsu2CDWmsRvFeeumw",
+     "input": {
+      "choice": "B"
+     },
+     "name": "choose",
+     "type": "tool_use",
+     "caller": {
+      "type": "direct"
+     },
+     "toolset_name": null
+    }
+   ],
+   "stop_reason": "tool_use",
+   "usage": {
+    "input_tokens": 722,
+    "output_tokens": 233,
+    "total_tokens": 955,
+    "input_token_details": {
+     "cache_read": 718,
+     "cache_creation": 0,
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_token_details": {
+     "reasoning": 187
+    }
+   },
+   "usd": 0.00012408,
+   "problem": null
+  }
+ ]
+}

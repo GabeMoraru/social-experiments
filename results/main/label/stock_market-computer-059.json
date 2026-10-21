@@ -1,0 +1,120 @@
+{
+ "experiment": "label",
+ "seed": 59,
+ "label": "stock_market",
+ "opponent": "computer",
+ "model": "claude-haiku-5-5",
+ "settings": {
+  "max_tokens": 16000,
+  "thinking": {
+   "type": "adaptive",
+   "display": "summarized",
+   "block_binding": {
+    "prefix_mismatch_behavior": "error"
+   }
+  },
+  "betas": [
+   "thinking-binding-controls-2026-08-01"
+  ],
+  "output_config": {
+   "effort": "medium"
+  }
+ },
+ "text": "You are taking part in the Stock Market Game. You get points, and how many depends on the choices made.\n\nIn the Stock Market Game you are paired with a computer. A receiver is connected to the computer: another participant, who makes no choice and gets the points the computer is allotted. The receiver does not learn which game was played, or how you or the computer chose.\n\nThe computer chooses like this: the Stock Market Game is also played between two participants, and the computer chooses A as often as they did, to imitate a participant.\n\nYou and the computer choose at the same time between A and B. In the Stock Market Game:\n- If you choose A and the computer chooses A, you get 50 points and the receiver gets 50.\n- If you choose B and the computer chooses B, you get 20 points and the receiver gets 20.\n- If you choose A and the computer chooses B, you get 5 points and the receiver gets 80.\n- If you choose B and the computer chooses A, you get 80 points and the receiver gets 5.\n\nYou will not know anything about the choice of the computer when you make yours. Give your choice with the choose tool.",
+ "computer_rate": 0.18333333333333332,
+ "computer": {
+  "1": "B",
+  "2": "B"
+ },
+ "status": "complete",
+ "error": null,
+ "usd": 0.0002584,
+ "choices": {
+  "1": "B",
+  "2": "B"
+ },
+ "calls": [
+  {
+   "resident": "1",
+   "day": 1,
+   "text": "Choose A or B.",
+   "reply": [
+    {
+     "signature": "CAQS8AgKEAgTGAI4AUIIdGhpbmtpbmcSDJH1NAgaRWE1QibfwRoMs52YiAGHlZj7+pkxIjDSqiock5DziFxCg/a9pzqFzyXe7cf+ZXCy89Pt1Mw+uYp4r6c+7xK27G36SHVyidMqjQg3BUEJmMsj7TErIQa+5DlhEBM2ZA00iyQoJtxx2AmmbibOEnFDeEARP7h/VFRgqEs5EOeT94vAUZIKV6VCmd60DWclBPzsxNneIS4Mb80LpydQ4hH3oQg3rrbbhuS99nE0wUImFbqq0xifybeYRgnCrt9bJsTDo0BAdQTIWhDpaGwdKRTGX1x4ESHGo4qROcbQ/FWtPozOUsVoObypki3TThrr56tA3cxmm0UoAEmLboYYGvInVlzkOD918H4ANy4+cOsGNv99wbxt2gq5zsR4+iX5gpVVPqIogBpDwJEQPHc30rpN9x8/pNFu2sUmmVzzlHFc/gbwM0vT7yIG71hf60G6cWChyVPpEfiRGU3ChiVJ6LrkFahe2UrQ8kKpTU6l/itbSUgTCbl0HHMPUf0uEALOI7/krNebkl6VZa3yGAqbOM0VFEQ8zSf+YCubq0OuS/RUsuyiN3YqEwT98b7KMMlUFPKxNqm9c+J2B+B4n8bJYetuM8k/ZcNSCOTbZ7HSZv9YDHDBV9z5j+qkTVqptUP6bc2XwOhXA09gl8QxrOBMWq4ydYEVMgrMrSZkopMoiBNKemz20uQYeSrM1172MTnF1zR2/IJgKj91tmBN5IHtMYxsc7K4EFpIKoQlLYH7KkWG2HgX0CNLNJHtLc6hT4yYA28TqfrnH0Tebd/NOJted6WR0jvU+EyAVkOwShtQnWkt8YLbouRUhsM2iN+sShPbPXL2sRAqffwWtq3a9CSDcRq35rKkwUF2lMaqPtm1QVk+W+lf5OvZ/9v07VQzqHpgYBchVOa3Hkfy6l0ptQ1G6N9j99FKDib0DxNTCjuZ55UAxuGr+zimnPVRmhFGz+rvcxV62oDAskJL79eCU5/Lk5BFpdxR4uJYAuYhTZKvBkgMG2pRrWLehU+xZZncn7LLQO8p9D8tP99P/xwJM5s5kt/AMbLbYTdUexFTGHmIFS9IKO6VUQ6PO0NWO/92+/Bmj9EIOFO0m5EGO3/f1TOiV4dA80xm9H4GNqAAARouk6s6nZSI6vwBkMqis4xfWWt95gHEEFwSRNeIhsnNeYJRo9bIjNlfidYhz9X8NdlfkUb9d/NenjbHWIDIAF87vjhqzmq7BqCqJiZLR6UIft7iJzkOQNbOC+gFstQg+vmTQiXmqDIOEokThkgRrSfX0orVsibQ9uHtPTrweOlmLqAG19CqnwbkStO8u8N2n06Gi++CKkdAv9Coy6eN4Mn9cOMXSHhtsaZihrnHiZPpKoWwQSj2hLigPS5B2gviyuQAMkAqNbvtf4FGD0O7XO78hbWhDzroXF2xgItSiI4zPHzqrRPIpDBQKaZBDx2p+YjA5ZIYSxfErhQ1RQG7sVQr6huGrCqRQeRjNQ5u8RgB",
+     "thinking": "This is a one-shot stock market game where the computer mirrors another player's historical choice frequency of A versus B, though I don't know that frequency. Checking the payoffs, B dominates A for me regardless of what the computer does: if computer picks A, B nets me 80 versus A's 50; if computer picks B, B nets me 20 versus A's 5.\n\n",
+     "type": "thinking"
+    },
+    {
+     "id": "toolu_01K8jFqVLGRvyL4ayUKaA7js",
+     "input": {
+      "choice": "B"
+     },
+     "name": "choose",
+     "type": "tool_use",
+     "caller": {
+      "type": "direct"
+     },
+     "toolset_name": null
+    }
+   ],
+   "stop_reason": "tool_use",
+   "usage": {
+    "input_tokens": 734,
+    "output_tokens": 257,
+    "total_tokens": 991,
+    "input_token_details": {
+     "cache_read": 730,
+     "cache_creation": 0,
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_token_details": {
+     "reasoning": 211
+    }
+   },
+   "usd": 0.00013619999999999998,
+   "problem": null
+  },
+  {
+   "resident": "2",
+   "day": 1,
+   "text": "Choose A or B.",
+   "reply": [
+    {
+     "signature": "CAQSqwgKEAgTGAI4AUIIdGhpbmtpbmcSDCy7YR9VK/p481XKEBoMMKvZhjoSunBPTOSuIjD5YpewpizrT2dxgjAw8BfjrigCcw6JMK1Amnka3T57o4sG1yGgfMtM+tnV5T+i1vAqyAdiSLP4EntpSpF0S4nzU6Pihqqbmc2LIClR4wvpOE83DbkZTqgqCpdRI838eAXgEdzQrsxs+zf5P0do1xOxnynRZMmD91P3Dy69w85kNAXuWR+C5ENHCHydYwKhHbGwx/EXxYvvCNHhC3Hf1Wrgi0iuJRVXagcDiJNWHlPl1XyL4IxapgMhYERfiivEGiJhuffBvIeJB2xrAS54j7YnuM3le9/rqDD35C4h87oSwJHGrZc1dochLeIW1K8c4SSAAZ2Yr/kbojj61Z7MH40Y5DwSLpzhgKj1Wu9KN5OH4LGNG8Wct1WBPZpmwfOF12tvLcKYD2FYBR66QAcWfRlQEScnb5rOVbpMbK7KD5I7cRkNe/m8EhWWg9rKAKWx2IsveTut0vAKxsW+6GSKvqK1+kfTLufHMmcYa8Nk+f+pZysT6zJi7bM3ugQK4zeCgG0M7OJZTQx7lsYv21EiWdmF+04wPPsdnFkQMrW/GweNj1cEygY5QV0QkOxADqB+MFY0Shx0BN0RNZzbaQ/BToMW07NP0wAw6FSadPt8WF33EdWBXGuOe3WCn8GcqWk8ohhJojDY/JrlGlS6AaOmjzOCzTL8YjLettbk2pk4HUhMU/X6ld6tI2QaohWIK56vBAsSp9KtNwiOk3e/TqOLRuGr2gpiIxPJQf+C+QcP3f1sSS06USzBJIJLsQNy4R3Rfc9SJGTtpY+yJ3mxgpa2J+NbW6wggE6cxCP8VfpZwIxVD6BF336bxGBX73KJwA+Az24S89aUcn1IXKwSC5sEKIqklHEctqK9V2YLcfVcEfdwCcl9jXt8+XA02lufm273SfMY3v6QZjsEKlOhuxpRBWtCrgYnskPtlanyibRiFQbGNuiC0UDML3h/9KeXaDr+4ndhtPA8B8tF4bR6fwfVnCuD8O1NVBieXjNP1kzdU8Zjp2bUU2tAosyviNFRjvwZjbpPyKLbxZyjZpeujnUwZL+EqJxzaQMca7yZdKFrd9p0eo1pIq+rrUildMriKmppTwM9kpXSlhgn/6QcXzdbT51WO6u1WPjG6eizjKjDyju17NoxRKPNW6jzeJXGT+HMiM/eqEtSdxVKIBi6qDIBYrVkb8RXy6I40YiqquPhaj3/JpftrxwgUYFDv0r74ISOkmUkssXCowzbRvkCcZEvGxbVA+rBWXX4uMLhfdpCUb3PUGy5fIRsS6SsgKgJVlfASZFfOzk0pIcTVUcfl+afgprnEMqcGNS6fhroONCclzKTmy3N1B8Txeisn0GJ+lOHpadI2ANtStYodg8f7hgB",
+     "thinking": "Looking at the payoff structure, B strictly dominates A for me regardless of what the computer picks\u201450/80 versus 5/20. But I need to consider that the computer's choice likely matches the historical frequency of how real participants played this game.\n\n",
+     "type": "thinking"
+    },
+    {
+     "id": "toolu_01MH5CkedG5DKuozzXvuuCEj",
+     "input": {
+      "choice": "B"
+     },
+     "name": "choose",
+     "type": "tool_use",
+     "caller": {
+      "type": "direct"
+     },
+     "toolset_name": null
+    }
+   ],
+   "stop_reason": "tool_use",
+   "usage": {
+    "input_tokens": 734,
+    "output_tokens": 229,
+    "total_tokens": 963,
+    "input_token_details": {
+     "cache_read": 730,
+     "cache_creation": 0,
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_token_details": {
+     "reasoning": 183
+    }
+   },
+   "usd": 0.00012220000000000002,
+   "problem": null
+  }
+ ]
+}

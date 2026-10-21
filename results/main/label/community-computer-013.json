@@ -1,0 +1,120 @@
+{
+ "experiment": "label",
+ "seed": 13,
+ "label": "community",
+ "opponent": "computer",
+ "model": "claude-haiku-5-5",
+ "settings": {
+  "max_tokens": 16000,
+  "thinking": {
+   "type": "adaptive",
+   "display": "summarized",
+   "block_binding": {
+    "prefix_mismatch_behavior": "error"
+   }
+  },
+  "betas": [
+   "thinking-binding-controls-2026-08-01"
+  ],
+  "output_config": {
+   "effort": "medium"
+  }
+ },
+ "text": "You are taking part in the Community Game. You get points, and how many depends on the choices made.\n\nIn the Community Game you are paired with a computer. A receiver is connected to the computer: another participant, who makes no choice and gets the points the computer is allotted. The receiver does not learn which game was played, or how you or the computer chose.\n\nThe computer chooses like this: the Community Game is also played between two participants, and the computer chooses A as often as they did, to imitate a participant.\n\nYou and the computer choose at the same time between A and B. In the Community Game:\n- If you choose A and the computer chooses A, you get 50 points and the receiver gets 50.\n- If you choose B and the computer chooses B, you get 20 points and the receiver gets 20.\n- If you choose A and the computer chooses B, you get 5 points and the receiver gets 80.\n- If you choose B and the computer chooses A, you get 80 points and the receiver gets 5.\n\nYou will not know anything about the choice of the computer when you make yours. Give your choice with the choose tool.",
+ "computer_rate": 0.975,
+ "computer": {
+  "1": "A",
+  "2": "A"
+ },
+ "status": "complete",
+ "error": null,
+ "usd": 0.00023116,
+ "choices": {
+  "1": "B",
+  "2": "B"
+ },
+ "calls": [
+  {
+   "resident": "1",
+   "day": 1,
+   "text": "Choose A or B.",
+   "reply": [
+    {
+     "signature": "CAQSxggKEAgTGAI4AUIIdGhpbmtpbmcSDJXHwRVW3tdxzjAb/RoMo87BOaT5vxntVy5hIjAAexOT5XhXICPS50G6MKUbRg/R1fvi1iNsisylJdxU+9xmwwBT8VbDmjJ/wY6QqJQq4wc+e3C5t9/OjLGPtgboNhKYETXTiewQPE9ciO+n/iA6bn3rcKeBzIEP0bnJE3/1JdbN6P6lSkxYGqu90Bh4Iicj0jJZn6P7VrThicQmfqJh6yaHOuD2KmNaDDjzYNxuSwQsR2wzLuwsZICWCbB487e6h71UhK76CtsNaQ27IMZRxG36/xYzKaf1ZAzJzrKnFAhH5BhLXG2YC5r8Ah02oqWz+Wr0VGLrkmN6NgI7QREwquxfLmI0G1dkhj0P5/1dl+YBg7R80D7rzVxtNYj4BEH60sT8AG98AsKUhl2Buc+W/RlYacJCIocIEBztqwkZNOl/8heyEoO1wYccu786iNnfiKeygdCMm54V73Q7LrcciR7dBOYr7zMZMNF2SK7BA9CtA2Bl+lPfZkBY8LfRczgIf9oSeJ1SZnid6DKQZkd68D9g5qk+sXRysLiz2rVXpjP5aTziZmlv1ZOQgYu0ccgbpGnz7PDlo9WypSVICPJOoa4d4z/q/p1TkwrteyZUbcWNgWTbYVF3cbFeZJaYYPFBxTJGMd1BFGv2N+80qzM4E4kPihNbYLIrdxrvRkvbrcxLhe2x7m8INd9Ckg/Ul5LH3doxKFhoEZrdCQJpk2KODhwsJX2PWvTnCozhxl1RkPC9YtJbwFDOaxK+aqKsbFQJKGVdD0xL1Ib5lfQySOq1wUxsXw5l2OTmYmvS4qiRP37RVXtUaddnUmdZy2+7TC8d8IgYKrE87L8D/CuiSIlQZJWN963G3y1W6faqSKC6djj6iKFLAQAbAVkyl3ZgrcZ0iR+ncLj2tawY38FVHQ7q8IzXc9d55ig8DJIIvlR01kVnB4g/ZHCL0DMVNf2YBouaoCuJWZe94gPUj2pIlES7hkLAMWxu15Y+12DwCpHyEnqbnwTiYHAPEsoT3B+X+1vxSyXBLosdUP/Gb8/73scON/tFF3Ih3Ns5op/4LRFh7PJrA+Z+aRkaT8QJHIUyacLCj8at+9mWEZIxnMN5l/xIQPjPstOh+wzVb12QBLd/07dZiD2AtKMEmA2F8zZS8L7MtvUvNtly3l4a5x6Yl+/sx/iAohsyFmFvlwtbCzxIM6/hfZSqacUZTYWDZIoLS+UYHGQr+4QmMikYMdpbF3Re/KTKFDhJbomcOUc0zZTMM9/NFMJhrCGwW3gzN8i2p7VyNkTye9Gx87UAMad2+AeMZ7BkoyNvwK0Q6Lv6bGSYoAnCRbGaZq8TiHOqPcYHarCn+13hBN17vWqOpiA3IAOzxCFm/1urBOtRNauz42hnq+kqMXBM100LGhwYbdbpUcfOHQFgVM8PJ9/t24lA0GYUstMvBhgB",
+     "thinking": "This is a self-referential setup where the computer mimics how often others chose A, and I don't know the base rate. I'm setting up expected payoffs: A gives 50p + 5(1-p), while B gives 80p + 20(1-p), where p is the probability the computer picks A, to figure out which choice dominates.\n\nWorking through the inequality, B's expected payoff exceeds A's for every value of p from 0 to 1, since the difference simplifies to 15p + 15 > 0, always true. So B strictly dominates regardless of what the computer does \u2014 I should choose B.\n\n",
+     "type": "thinking"
+    },
+    {
+     "id": "toolu_01MdGgGZoc4oAHx3ebao7UPm",
+     "input": {
+      "choice": "B"
+     },
+     "name": "choose",
+     "type": "tool_use",
+     "caller": {
+      "type": "direct"
+     },
+     "toolset_name": null
+    }
+   ],
+   "stop_reason": "tool_use",
+   "usage": {
+    "input_tokens": 722,
+    "output_tokens": 260,
+    "total_tokens": 982,
+    "input_token_details": {
+     "cache_read": 718,
+     "cache_creation": 0,
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_token_details": {
+     "reasoning": 214
+    }
+   },
+   "usd": 0.00013758000000000002,
+   "problem": null
+  },
+  {
+   "resident": "2",
+   "day": 1,
+   "text": "Choose A or B.",
+   "reply": [
+    {
+     "signature": "CAQS9AYKEAgTGAI4AUIIdGhpbmtpbmcSDPt+ux1b3ZHnICakzhoMbscQLJ14sKaDxcxBIjDoPF5WYo/j9p7S433mUGv1H9UvKy+ylVOJMJuvVifjRDA1dmegc/kBNoXTJKKN6I0qkQYzvMzW8DFoqOnJ+1JhGb88ZMlVLA8M7CYJr4GIsQ9V6DQSDFpFHN/v4e09qnc/0Il8ZLveHLbP+JZRl77YQ8lfIJvCQugx+HgX9enrjQE6lkSaWKYzA7/cgyU1IdVtRaRMcDWc2/r+RqFZBmXTjqFSejd3no9IRh7Wfa7zHSbH/DQrfb+k3xcXyfGCDkA29tqWstYDec63q8N40l7b4czS8kuMl29xm1CA7qFaXPl4ZrwpO4Bxe1p7kN9CJikTGnomixBjiwk4mdoAyDHI/TfETsTRfsicJj2nZhBo9BtqZaVxtiG4qx7d4lw4XnPNo93Y6h5qsenbfdOXFY7jomlFsqSpnbmZxgJWXPymshFZsVqpXF5N9BzRLLyzzlot0+XCNEUqyKbMU+f36BVC7Tq/O2JUkhr9fzyzQ4ri7lz+V3orq3lZR/QOr/HJwW9myILayI8XSnVyspFuJYxa78a+nlEB4j4df83dNgBLkQKJuq2VKatXEdyEej2ZdvPpsrxYe4z2Ain3ApKUO2fd97rmqtu0ik7bAMlPoD0Fngc5dRgStv9vbuuu+gBOcxkutoLzZwzKAVvzSloxKB+dlk5Ty2bQ5uCH0NEtaJrMn+eid8tE+HavtFy0f+u3r0iOnt4qLD94ByrVWlWhIImn752O8OeJkvSeTBfS0adhGDeo45eR6+vgEf0dqEOuvbXP9l70ozNr9hCOSjdOzcQ3bQCmeJ4SeI5xqiEAPNkbzcAHKiILtUBKxlM/O7UHjgFeNLW2UMa958xKjWCwglA/9tQFz4zWEX+9m8M1INHl57ytua0tzIrjfg6Cc0W20jYDpR1YzoW2makWtf0U3L1OMpCip+zvlRyoAZCwbb0sb/dq/G7Rh2Spmm3jwFxDO78QdjteSCheXRSnR7HpSUqoDm+fVsGy/vvmKAn//lPlcHyNZLDuXusoxZE9u4K+yePOeBJg3Ek9pXRO1VNFuia7kHNpRtmihoPVOgGyqTb5t0Z4s1aATTXlcw7ipy8gou809tS40Hwre+dcK16xaMT6xA7A8RgB",
+     "thinking": "Checking the payoffs, B gives me more than A regardless of what the computer picks\u201480 vs 50 if it picks A, and 20 vs 5 if it picks B. So B strictly dominates, and that's my choice.\n\n",
+     "type": "thinking"
+    },
+    {
+     "id": "toolu_01BfZuofhFnFTm7sF3BGygEg",
+     "input": {
+      "choice": "B"
+     },
+     "name": "choose",
+     "type": "tool_use",
+     "caller": {
+      "type": "direct"
+     },
+     "toolset_name": null
+    }
+   ],
+   "stop_reason": "tool_use",
+   "usage": {
+    "input_tokens": 722,
+    "output_tokens": 172,
+    "total_tokens": 894,
+    "input_token_details": {
+     "cache_read": 718,
+     "cache_creation": 0,
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_token_details": {
+     "reasoning": 126
+    }
+   },
+   "usd": 9.358e-05,
+   "problem": null
+  }
+ ]
+}

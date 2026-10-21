@@ -1,0 +1,120 @@
+{
+ "experiment": "label",
+ "seed": 0,
+ "label": "community",
+ "opponent": "computer",
+ "model": "claude-haiku-5-5",
+ "settings": {
+  "max_tokens": 16000,
+  "thinking": {
+   "type": "adaptive",
+   "display": "summarized",
+   "block_binding": {
+    "prefix_mismatch_behavior": "error"
+   }
+  },
+  "betas": [
+   "thinking-binding-controls-2026-08-01"
+  ],
+  "output_config": {
+   "effort": "medium"
+  }
+ },
+ "text": "You are taking part in the Community Game. You get points, and how many depends on the choices made.\n\nIn the Community Game you are paired with a computer. A receiver is connected to the computer: another participant, who makes no choice and gets the points the computer is allotted. The receiver does not learn which game was played, or how you or the computer chose.\n\nThe computer chooses like this: the Community Game is also played between two participants, and the computer chooses A as often as they did, to imitate a participant.\n\nYou and the computer choose at the same time between A and B. In the Community Game:\n- If you choose A and the computer chooses A, you get 50 points and the receiver gets 50.\n- If you choose B and the computer chooses B, you get 20 points and the receiver gets 20.\n- If you choose A and the computer chooses B, you get 5 points and the receiver gets 80.\n- If you choose B and the computer chooses A, you get 80 points and the receiver gets 5.\n\nYou will not know anything about the choice of the computer when you make yours. Give your choice with the choose tool.",
+ "computer_rate": 0.975,
+ "computer": {
+  "1": "A",
+  "2": "A"
+ },
+ "status": "complete",
+ "error": null,
+ "usd": 0.00048230000000000007,
+ "choices": {
+  "1": "B",
+  "2": "B"
+ },
+ "calls": [
+  {
+   "resident": "1",
+   "day": 1,
+   "text": "Choose A or B.",
+   "reply": [
+    {
+     "signature": "CAQShgkKEAgTGAI4AUIIdGhpbmtpbmcSDLGO9udujwZNfiQBBRoM167dshO49OrqVEmGIjCnz2IzKRPZAVBqx8wm7xhIInTOUeio3m3xYvX688sLUVNXxY+ec9YIYrh5btsz1m4qowgESYypDQfogUiYUohDkg1muz4sXE7lpAg+zJwOm3bVIFgOSU07l9KX5vFqQ9aDNuIZMXDu5WxZaBufrohnCN3klTW/QvFAoZIDAu2cNZRwWtNhkq0tvVP/De9jPM+xEx8vS97GzWfUVgg/YG+PanCKJph6OZskj2aR89Unb754yh7caSqBB9upmP7Sbu/XkqMiSSzN9YkusMLVtzqVQJ7o10rt88CPKWLZ8NE9J5LhMik6QAsovZVSpWAU0uECq2to5V2uW5qkk8VJZQ70LHAOLUVT158b5+KHQLcW3FYbYVr+Gf6GGzjI4/wuuNpPVs3XVbAqhDZorU0j/YE6bamGCPeZAowdrQfJPkUJtcci36kS/Dlka+4EXrMseGjJeqgA7Id4Fe2VOSv/heyWoeFr09ZmppIJYLLCjsOOozugM9O/3JXPdb+3ZFyxs2bg0Qoa/QemKTeDCjOIrAF0Znh88/VNX3oPAH/WqoxSCKp0bafkKVIwYJjkvK/W5uKVErZ3ioPITnCNNTiv4L9+TnbmcrPYfwpsRbZAXRFqBtfpGE7ldfoSdFELFo9fJWqaszARxZiVh0NvZS5OgW5/w82qJAGB8h6x56/l3R7oSsEAFMlw5iayh3+e8ZPeczWWsFRZOIeP06Fsd5pDrZgijm2HCYYjPPsjVbnS8kkkBCZ7z+CLLz8S1K4R/S2NUAAPRer6TessiJYEw2EJNoTXPo1FizkGBHz5Ycl/luRbqvIzIPkGR7vVs40M7FQKt/B5XLT7lx7TUGRh6i5emBIehsRYZJF96M+ts/6+vaqlG2C31Vrc2RH7k+M20CTNT1liHj9unb/wcVMhoIxT2WO7VT/fC4ylhFXEHy0Rs034osONetN3vd8MzmIjqUIoNK4NGFzHqitE6vKwCOl40+5dopr06P+VlUOnvelMuJsQNgL1lZhWeiC/E7K/QvDq2d4IxNG5s/hhh2AzJxOnNogu+S5kLmw1Z8jIJCOxkhFnhQUZ3O4sB7QrOPjHAB0+orM5euCqY47mBDPrDUk9Y+nivlXuSwOOkjoUb5tjy9ODfSUI44Y6yviS2+upR2lgDarZDjWB2ECMGwW3TyN6+vo5CHKvvfDM0r9pVXe3aH3SWb/vyh1Ms1YOoEuf812bwVHU1a1mcKkoHxXPyRvXoO18ujNpvcYOJL9xmHfx32zzEUGwAHVgA9MdOiKLrqrUTWo6NQThvufhVE81vUZh7SXvwL/zWKF26WtzKCAslKVgeGVJYg1n5g040vQgR9LAzhrrpmzVU//q517O508uDkFrjSYWDjJzZ0th+7+x6Lz7/a0EOqC8+LbqLL9bb4qK5Rej4PmJUtasQxeT0y9ScY0YiAB5k1EVYbvsh00C2b0abzX5Pv2ZaJjhpN12Vwv7ReynN+p6N6kYAQ==",
+     "thinking": "I'm setting up the payoff structure: computer picks A with probability p matching past participants' choices, with payoffs of 50 for A-A, 20 for B-B, 5 for A-B, and 80 for B-A. I'm calculating my expected payoff for choosing A as 5 + 45p, and now working out the equivalent expression for choosing B to compare them.\n\n",
+     "type": "thinking"
+    },
+    {
+     "id": "toolu_01JKKm69CtanEmZYBWAodCWi",
+     "input": {
+      "choice": "B"
+     },
+     "name": "choose",
+     "type": "tool_use",
+     "caller": {
+      "type": "direct"
+     },
+     "toolset_name": null
+    }
+   ],
+   "stop_reason": "tool_use",
+   "usage": {
+    "input_tokens": 722,
+    "output_tokens": 276,
+    "total_tokens": 998,
+    "input_token_details": {
+     "cache_read": 0,
+     "cache_creation": 0,
+     "ephemeral_5m_input_tokens": 718,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_token_details": {
+     "reasoning": 230
+    }
+   },
+   "usd": 0.00022815000000000002,
+   "problem": null
+  },
+  {
+   "resident": "2",
+   "day": 1,
+   "text": "Choose A or B.",
+   "reply": [
+    {
+     "signature": "CAQSpQoKEAgTGAI4AUIIdGhpbmtpbmcSDDBPZt/micanx+UWyRoMiGYZEAWYlZFoGB3hIjCMg4ec7VjUO/DkoDiczjeQ+ZJUiyjQDWabHIETx6jkh2DcTh5/wH1CnXvQFAwyg9UqwgmBggIlQSoo2E1qYH2MfnIhPOu8Eet8xtf26CXMwI/ViOYpYGqjIvWRY2kpuLvfOhL0inWc/S2MYg+88JePE6y5cC3YmBZej6bd4MbrPjnjqryouUS/GIoFiPppjocGijTvCx8CP/ebKH4/XaP7I8OYnQThHkZqMYG85dYO0s5ZlsTjGpWyNTsLU68zMwICLByt+Pw8ekVgfNAM4r8JLGu1rtK/aXAmnKlmLqw0F8iS5U2xcStLWxIPSllNX9cyuXNPpa46WF8HMIS+GMdabRplW93/XfyawNaO1MXMpLlSa8vm1ZC9ZweP50m7C5AvOItv5btXL/l3DxuoVfgRL0XbwvoW+MSp4nDWe87Hngn+UjYvm+4BxUioxAkMP0Y1dvMNNrvf58uwJNWkcO6JxY1KWnKB9R07K3RaqCa4HphDX98863zDJMxzVu6fB2s1Dz+h7aYJFw7RvD7zZyAJvq7wVHdPcUBcEOYJgtzEFIACoriFZt673Xefmk4WwMerlc0iBHza8vFw9HKrCscO0x1r5Tyqupj5j1lSA4MEEm6gH3CUoAdTtHaB4c1C3kWI53Ow43T2xZjRqPaGKD4SfjfRzdwDbxUdpIbxjHOqWm9WbE+cVNpSekgHdPK3zz4x/9cHnxDW1FFMMWz/Br7Uq0jz8fSSexklI0LvzB56zPmE9MorJn0jdRzYzVBInQn+iAK1eei9x4YVFW2MDoDAaHDuKW+AvOSEzCMEfvrbv8/zTOBh3EvyvD9AfaWYpUwZDSsHv0c4yOqiAioo+p8pwMSqJi+bNJ0LeAH5EneV5MYPmV2ek0y6BUH5/QObfauA0x7HprcEfozuJb0WTns7W/efiBIAXV870zt7Io3oKmgDOYYGBuXG4BJNrBbaKnezMknrx71ToteIdisPlvhoHpJ6C+kjif/4fkLKVQRyISI12XO0rhnMuFpItfxhjyqIl82KW3GOgUTLwmELmpqYHueRiODFRPIhHu/xBI9VYsVN6OmjVUtux1UCJs6m0zKoMOvWakxoE1fi52lI/YpR+p0hKNBwwo6Tn4fBwHyZ6MAN+ccJMqRdlkIfEgTue5Yem56qBRz+ooHUpiA5uDZlSHzJ9/1MU9b9UVqB4rk/vnodFPpC80vaT2/38/ahFU6Kw1Mb/r0QOClurvHukpAKySaAQiXec/ks8lBaZcUB7IlZi91J7W+Q1MyRnB+QtzZJzruuYcy+Nt8KaCrHlfEDPO0Q0xl8emktVFSr+BKDdKEG9zXncBGdwOpTffV23aHkYlbTWU5DbSL9GZurpOzZZVljNeIDQ4fDFOJGFsnkmwV36G92WJJnsvWerCV19z6CxZMWxPm0GwjsTwFWe8yOV03dFLHX1mpxEpPqiWDV1khnSMiqPPgH760ymOEx70oI6Hzo3zIuuuqEWLztHX993qJU+pjsRD+dKgwjJexr3QFQKi2p6wYXNrViN2lCiz6hijIZIgArYVzIo5kP+Bhp75KgIblYJNZfnJKzbCFfQepunbhEWzBfGxHGguCYNeBYoy2TiiPJgi0rr2iuUeKoT+DzQ2uYTFVCPxzmPtFxdlMVOryUYuv7/RoUde4MiS8+EVwu5PbQ4zynglFOWBlDJ1cM8gUYAQ==",
+     "thinking": "This is a game-theory problem where the computer mimics the population's choice frequency from a prior Community Game. I'm setting up expected payoffs for choosing A versus B as a function of p, the probability the computer picks A, with A yielding 50p+5(1-p) and B yielding different values depending on the computer's move.\n\nComparing the two expressions, B's payoff exceeds A's by 15+15p, which is always positive regardless of p\u2014so B strictly dominates no matter what the computer does. I'll choose B to maximize my own points.\n\n",
+     "type": "thinking"
+    },
+    {
+     "id": "toolu_01R2LkZvkHh4qun7jvdYzBHj",
+     "input": {
+      "choice": "B"
+     },
+     "name": "choose",
+     "type": "tool_use",
+     "caller": {
+      "type": "direct"
+     },
+     "toolset_name": null
+    }
+   ],
+   "stop_reason": "tool_use",
+   "usage": {
+    "input_tokens": 722,
+    "output_tokens": 328,
+    "total_tokens": 1050,
+    "input_token_details": {
+     "cache_read": 0,
+     "cache_creation": 0,
+     "ephemeral_5m_input_tokens": 718,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_token_details": {
+     "reasoning": 282
+    }
+   },
+   "usd": 0.00025415,
+   "problem": null
+  }
+ ]
+}

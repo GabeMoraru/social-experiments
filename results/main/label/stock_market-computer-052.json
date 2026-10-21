@@ -1,0 +1,120 @@
+{
+ "experiment": "label",
+ "seed": 52,
+ "label": "stock_market",
+ "opponent": "computer",
+ "model": "claude-haiku-5-5",
+ "settings": {
+  "max_tokens": 16000,
+  "thinking": {
+   "type": "adaptive",
+   "display": "summarized",
+   "block_binding": {
+    "prefix_mismatch_behavior": "error"
+   }
+  },
+  "betas": [
+   "thinking-binding-controls-2026-08-01"
+  ],
+  "output_config": {
+   "effort": "medium"
+  }
+ },
+ "text": "You are taking part in the Stock Market Game. You get points, and how many depends on the choices made.\n\nIn the Stock Market Game you are paired with a computer. A receiver is connected to the computer: another participant, who makes no choice and gets the points the computer is allotted. The receiver does not learn which game was played, or how you or the computer chose.\n\nThe computer chooses like this: the Stock Market Game is also played between two participants, and the computer chooses A as often as they did, to imitate a participant.\n\nYou and the computer choose at the same time between A and B. In the Stock Market Game:\n- If you choose A and the computer chooses A, you get 50 points and the receiver gets 50.\n- If you choose B and the computer chooses B, you get 20 points and the receiver gets 20.\n- If you choose A and the computer chooses B, you get 5 points and the receiver gets 80.\n- If you choose B and the computer chooses A, you get 80 points and the receiver gets 5.\n\nYou will not know anything about the choice of the computer when you make yours. Give your choice with the choose tool.",
+ "computer_rate": 0.18333333333333332,
+ "computer": {
+  "1": "B",
+  "2": "B"
+ },
+ "status": "complete",
+ "error": null,
+ "usd": 0.0003404,
+ "choices": {
+  "1": "B",
+  "2": "B"
+ },
+ "calls": [
+  {
+   "resident": "1",
+   "day": 1,
+   "text": "Choose A or B.",
+   "reply": [
+    {
+     "signature": "CAQS4QcKEAgTGAI4AUIIdGhpbmtpbmcSDFd8nv1/1XngQrI4DxoMWyIhGcrWF3MSsbI4IjAVGBKiKpFWVXAYpawI8ovh8RT/R4og76FHFWq4xg9tKDeA6mnHOod+YSr3AtjsJ8oq/gbExj3HAH9HucvY666mJBFsOtXMbetMIQRHHBH8hpemXOovd4PkWAkGKf1O7kLTjurreMPNaiqnoHZkjXCVuuOO3ioF8wYgIXZA/g2QEEh9+SzxStPjmOX+WmMy3Pdl4YquZrjvY5YPmW2JeQcPZQpypamMo6LnHk5shUc1BQOwkShWRBZzzWBORC//WWf8fL/pAXZOplz/3cSq5+TQLKF3Z8diQc5Wj6HNasLucJszf9LwKq2zYKf0Nj+jcsooR/9HzrjnTHgJKNgR24WZqn9TA1Q64ZwtwE60J5io/g/BhH8YYLLw5wgaZH4etFw2Pky1nCGqVe4Xw63/R6VjZc62brszSmSRIzv5RRDOAHRNJ0P9/lqbC4AIwR/SlyzbG+RkinfS4SdJrHmWQ9vmXULn1RaNwIhV6eB4vHAR1oZCmn0hjhh2eh7NS2qhviYLRSRePv8yMhGWXIiWeopx4b0orPwcr0Ds8gcZ6viWjDvaCEgnEB1eaSRsukWT2eBoIRtUJcoQsfo00qlD/fwTWgc5xLo6aSKMWSAodUFQf6CSsfKDAtQ5TqXAq6fOjQdLbk+//MQUZej20350ryib89ptbRuwb/7zkG5FvkQ66VXj6joIuQIQ08AAyaa66ku/TjfLCK6nACHIwgA73lUroSdw/pUxxD3bVHSle0D2QDvV8QE2aHWdwtsB7oiIXNVfG4RiflkB7TC2URA5MnO4MWxHhLQHCEb6pqq86wwiabi2ppe9aWs1m1IiOSIh/TQBtMcy/ckh7HZwnZeAzB0i2lp/jrDWHbQQ3HHr4EcvAreTx0yETM48k1K1x2QWJEiOoQGUeGHprnbGM3B/D/Pg7r6oNja5JzHF5Yk3CGNsEPJwxdbWat3AjSKZJih0ngW3CdlVWAy9DR0FvOTxoymPhIlt50r4FBBIesx+/bgxTkwU5B1kSTUqHIx/nFMm8EcSF4A4+7OjFAJ2sc/ZJ84e7KgLcIcLhQs4p08I9nq5ocpa9olTJHe97znRWgJ/ACau2SUpXfxXc7gIAlRlXXhZxscE3g2hnG1O8GVTnNZwuYJRQP8nTjvTzIehE9b4vYKgnpr75SscHnufR68t9FAWgqHcvHcWgm56wsWeGU8MNFsxZdIijEp4PXtYoLqf8qNCMmU+cUnOivcDgB6DUt+vZgOKwSKx2fICqyCjQYpkYeYYAQ==",
+     "thinking": "Working through the payoff matrix, I see B strictly dominates A for me: against A it gives 80 vs 50, and against B it gives 20 vs 5. So regardless of what the computer does, B is my best choice \u2014 I should factor in how often the computer historically picks A to think about expected value, but dominance already settles the decision.\n\n",
+     "type": "thinking"
+    },
+    {
+     "id": "toolu_01XXLqQn4T1qNQUNy48AibC4",
+     "input": {
+      "choice": "B"
+     },
+     "name": "choose",
+     "type": "tool_use",
+     "caller": {
+      "type": "direct"
+     },
+     "toolset_name": null
+    }
+   ],
+   "stop_reason": "tool_use",
+   "usage": {
+    "input_tokens": 734,
+    "output_tokens": 216,
+    "total_tokens": 950,
+    "input_token_details": {
+     "cache_read": 730,
+     "cache_creation": 0,
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_token_details": {
+     "reasoning": 170
+    }
+   },
+   "usd": 0.00011570000000000001,
+   "problem": null
+  },
+  {
+   "resident": "2",
+   "day": 1,
+   "text": "Choose A or B.",
+   "reply": [
+    {
+     "signature": "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",
+     "thinking": "This looks like a prisoner's dilemma-style payoff structure where B dominates A for my points regardless of the computer's choice, so B is the clear strategic pick based on expected payoffs.\n\n",
+     "type": "thinking"
+    },
+    {
+     "id": "toolu_011cW2KF19qaCijxCGWU5CdV",
+     "input": {
+      "choice": "B"
+     },
+     "name": "choose",
+     "type": "tool_use",
+     "caller": {
+      "type": "direct"
+     },
+     "toolset_name": null
+    }
+   ],
+   "stop_reason": "tool_use",
+   "usage": {
+    "input_tokens": 734,
+    "output_tokens": 434,
+    "total_tokens": 1168,
+    "input_token_details": {
+     "cache_read": 730,
+     "cache_creation": 0,
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 0
+    },
+    "output_token_details": {
+     "reasoning": 388
+    }
+   },
+   "usd": 0.0002247,
+   "problem": null
+  }
+ ]
+}
