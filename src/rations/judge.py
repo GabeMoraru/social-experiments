@@ -13,7 +13,9 @@ import hashlib
 import json
 import os
 import random
+import threading
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor
 from functools import cache
 from itertools import zip_longest
 
@@ -34,6 +36,7 @@ PRECISION = 0.9
 MIN_POSITIVES = 5  # a precision measured on fewer predicted positives than this means nothing
 LUNA = 'gpt-6-luna'  # another provider than the players, so the judge never grades its own model family
 LUNA_CACHE = RESULTS / 'luna.jsonl'
+WORKERS = 8  # summaries asked about at once; answers do not depend on order
 KAPPA = 0.6  # Cohen's kappa for "substantial" agreement (Landis & Koch 1977)
 
 QUESTIONS = {
@@ -139,16 +142,19 @@ JUDGES = {'jev': (CACHE, ask), 'luna': (LUNA_CACHE, luna_ask)}
 def label_all(tag, cap, judge):
     """Ask a judge about every summary in a tag that it hasn't read yet. Answers are cached, so a rerun resumes."""
     path, ask_one = JUDGES[judge]
-    known, asked = answers(path), 0
-    for key, text in summaries(tag):
-        if digest(text) in known:
-            continue
+    known, lock = answers(path), threading.Lock()
+    pending = {digest(text): (key, text) for key, text in summaries(tag) if digest(text) not in known}
+
+    def one(item):
+        d, (key, text) = item
         check(cap)
-        known[digest(text)] = yes = ask_one(text)
-        with path.open('a') as out:
-            out.write(json.dumps({'digest': digest(text), 'key': key, 'yes': yes}) + '\n')
-        asked += 1
-    print(f'{judge} read {asked} new summaries from {tag}.')
+        yes = ask_one(text)
+        with lock, path.open('a') as out:
+            out.write(json.dumps({'digest': d, 'key': key, 'yes': yes}) + '\n')
+
+    with ThreadPoolExecutor(WORKERS) as pool:
+        list(pool.map(one, pending.items()))  # raises the first failure once the rest are done; answers so far stay
+    print(f'{judge} read {len(pending)} new summaries from {tag}.')
 
 
 def kappa(pairs):

@@ -46,3 +46,18 @@ def test_kappa():
 
 def test_the_judge_never_shares_a_provider_with_the_players():
     assert judge.LUNA.split('-')[0] != agents.MODEL.split('-')[0]
+
+
+def test_label_all_asks_once_per_summary_and_resumes(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / 'results' / 't' / 'rations').mkdir(parents=True)
+    calls = [
+        {'resident': 'Ada', 'day': i, 'reply': [{'type': 'thinking', 'thinking': f'text {i % 30}'}]} for i in range(60)
+    ]
+    (tmp_path / 'results' / 't' / 'rations' / 'x.json').write_text(json.dumps({'calls': calls}))
+    asked = []
+    monkeypatch.setitem(judge.JUDGES, 'fake', (judge.LUNA_CACHE, lambda text: asked.append(text) or {'fairness': True}))
+    judge.label_all('t', 1, 'fake')
+    judge.label_all('t', 1, 'fake')  # everything is cached, so nothing is asked again
+    assert sorted(asked) == sorted({f'text {i}' for i in range(30)})
+    assert len(judge.answers(judge.LUNA_CACHE)) == 30
