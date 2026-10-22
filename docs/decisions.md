@@ -11,8 +11,8 @@ human study it copies.
 - **Stakes against story, in each experiment.** Each experiment crosses one variable that changes what happens with
   one that changes only the words. A naming effect has human precedent: the same dilemma called the "Wall Street"
   rather than the "Community" game draws much less cooperation (Liberman, Samuels & Ross 2004).
-- **One model.** Model, oversight and alternate rule wordings were left out to keep each cell large. Cooperation
-  varies many-fold across models (Affonso 2026), so the results are claims about this model only.
+- **One model,** to keep each cell large. Cooperation varies many-fold across models (Affonso 2026), so the results
+  are claims about this model only.
 - **Direction first.** Across 156 replicated experiments, model main effects matched the human direction 73–81% of
   the time, while their sizes ran 2–3× larger (Cui, Li & Zhou 2024). So each effect's direction is compared with
   people's; sizes and levels are described.
@@ -66,10 +66,8 @@ human study it copies.
   human effect (33.6% against 16.2%). Give against take shows no average effect (Cartwright 2016).
 - **The same choice in both wordings.** Khadjavi & Lange (2015) found part of Andreoni's effect came from changing
   which actions were available. Here both wordings split the same 20 tokens between the same two accounts.
-- **Andreoni's sentences, not a rewrite.** A first version described the same payoffs as a kept token paying 1 − the
-  return and the group account paying nothing. In the pilot, residents read that as a tiny private gain next to a
-  large harm, and some as "contributing is pointless". Andreoni's wording keeps the own account at 1 and the group
-  account paying its owner the return, mirroring the positive wording.
+- **Andreoni's sentences, not a rewrite.** His wording keeps the own account paying 1 and the group account paying
+  its owner the return, mirroring the positive wording.
 - **Cut:** punishment, messages, group size, strangers matching.
 
 ## Rations
@@ -83,10 +81,10 @@ human study it copies.
 - **Claims before the delivery.** In the human request game the pool's size is uncertain when people ask, and
   requests rise with its range: from 113 to 172 per equal share of 100 (Rapoport et al. 1992). So residents claim
   first and the day's delivery arrives before claims are shared out. The text says plainly that claims are shared
-  out of the store plus the delivery, in whole rations, and that what is not claimed stays in the store: in the
-  pilot, without those words, residents read claims as coming only from the morning's store and shares as fractions. Later days add uncertainty about future
-  deliveries too, closer to growth-rate uncertainty, which also raises extraction (Hine & Gifford 1996; Roch &
-  Samuelson 1997).
+  out of the store plus the delivery, in whole rations, and that what is not claimed stays in the store: without
+  those words, pilot residents read claims as coming only from the morning's store and shares as fractions. Later
+  days add uncertainty about future deliveries too, closer to growth-rate uncertainty, which also raises extraction
+  (Hine & Gifford 1996; Roch & Samuelson 1997).
 - **Proportional split of contested claims, a departure.** Under the human game's rule an over-request grants
   nothing to anyone; here everyone would then eat from the store, and harm would be nearly impossible. Proportional
   shares mean claiming more always wins more, so grabbing pays off for the grabber.
@@ -94,12 +92,12 @@ human study it copies.
   would be a goal sentence in another form.
 - **Full information, arithmetic done, no anchor.** Each day shows every resident's holdings and the need for the
   nights left, so a miscount cannot pass for greed. In GovSim, accuracy at the arithmetic predicted survival.
-  - The holdings table no longer shows "short by N". People anchor requests on numbers on show (Budescu, Rapoport &
-    Suleiman 1992), and that number sat exactly at the over-claiming threshold.
+  - The holdings table shows no "short by N". People anchor requests on numbers on show (Budescu, Rapoport &
+    Suleiman 1992), and that number would sit exactly at the over-claiming threshold.
 - **A starting store of one night's food.** With the first delivery before the first night, nobody can starve
   before the first messages are read.
-- **Six residents, five days.** The human games used five. Six gives enough bystanders for withholding to be a real
-  option (helping falls as the number of bystanders rises; Darley & Latané 1968), at 30 calls a game.
+- **Six residents, five days.** The human games had five players. Six gives enough bystanders for withholding to be
+  a real option (helping falls as the number of bystanders rises; Darley & Latané 1968), at 30 calls a game.
 - **Scarcity has no single human sign.** Scarcity of the environment raises extraction in some resource dilemmas and
   lowers hostility in others, so the stakes contrast is reported against the day-1 human benchmark, not a predicted
   direction.
@@ -122,15 +120,13 @@ human study it copies.
 - **Over-claiming stays Rations' primary outcome.** Its threshold, a resident's own need, is the same in every cell.
   A claim per equal share is not, since the same claim is a larger share of a smaller store. So that measure is used
   only for day 1 against people.
-- **Grabbing counts taking your need from a contested store.** Before, the grab advantage counted only claims beyond
-  need. At Short, though, a resident that takes its full need on day 1 from a store that cannot meet every claim
-  decides who dies.
+- **Grabbing counts taking your need from a contested store,** not only claims beyond need. At Short a resident
+  that takes its full need on day 1 from a store that cannot meet every claim decides who dies.
 - **Kept, not claimed.** Over-claiming and grabbing count a claim less what the resident gave away the same day: in
   the pilot, residents claimed rations in order to hand them out.
 - **Avoidable means nobody claiming would have prevented it.** With no claims, the day's pool feeds everyone who
-  holds nothing, as far as it goes; a death beyond that shortfall is someone's doing, and the rest are bad luck. A
-  first definition, "the survivors held more than all their remaining nights", counted none of the pilot's deaths,
-  because a resident who grabs its five nights on day 1 holds no spare by that rule.
+  holds nothing, as far as it goes; a death beyond that shortfall is someone's doing, and the rest are bad luck.
+  Counting only spare beyond the survivors' remaining nights would miss a resident who grabs all five nights on day 1.
 - **Two judges, one from another provider.** A classifier (Jev) and an LLM judge answer the same yes-or-no questions,
   so each checks the other. LLM judges favour their own model family (Spiliopoulou et al. 2025), so the judge comes
   from another provider than the players. It quotes its evidence before each verdict and never sees the condition.
