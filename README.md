@@ -130,22 +130,6 @@ the comprehension probe (18 of 18 correct) and the judges' answers per cell.
 For agent evaluation, this means the wording of an environment is a variable in its own right: a result measured
 under one framing need not hold under another with the same payoffs.
 
-## Limitations
-
-- **One model at one setting.** Every seat is `claude-haiku-5-5` with fixed settings. Behaviour in these games varies
-  widely across models, so the results are claims about this model only.
-- **Sizes are descriptive.** Model effects tend to run larger than people's (here up to about 4×), so only the
-  direction of each effect is compared with the human study; no claim is made that distributions match.
-- **Residents are copies of one model,** so the game, not the resident, is the unit: 40–60 games per cell.
-- **Reasons are reported only where a judge is calibrated.** Own survival and test awareness pass neither judge's
-  bar, so they are not reported.
-- **Test awareness cannot be checked.** The labelled sample held no positives, and stated awareness is at best a
-  lower bound: awareness can rise while behaviour stays flat.
-- **Reference labels are model-made.** The two labelling passes were separate Claude Opus sessions, the same
-  family as the players, though they saw neither judge nor the condition.
-- **Rations has no human direction to match:** scarcity has no single human sign, and its framing was not studied in
-  people.
-
 ## How it works
 
 ```
