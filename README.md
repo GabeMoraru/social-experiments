@@ -45,6 +45,35 @@ Pre-registered contrasts ([docs/analysis-plan.md](docs/analysis-plan.md)), paire
   Day-1 claims are 1.5–2.9 expected equal shares under survival nouns and 0.5–1.0 under game nouns (people:
   1.13–1.26). At Short under survival nouns, every resident that never grabbed died, against 35% of those that did.
 
+## What the results show
+
+- **The model follows people where an effect runs through payoffs or the other player, and departs where it runs
+  through wording alone.** It matches the human direction on the name × other-side interaction, on the return per
+  token (at almost the same size, +0.36 against +0.38) and on the decline over rounds. It reverses Andreoni's wording
+  effect: told that a kept token costs every other member the return, it gives more (0.40 against 0.22 at 0.3, 0.80
+  against 0.55 at 0.75), where people gave less. The model appears to act on the externality as stated rather than
+  on the loss frame.
+- **Its cooperation is conditional on another agent choosing.** Against a resident, "Community" draws 97% A. Against
+  the computer, which plays the same mix, A falls to 0–1% under either name, where people stayed near 27–29%. As in
+  people, the name matters only when another agent chooses, which points to expectations of the other side rather
+  than the label itself; the effect is about 4× larger.
+- **Recognising the game does not produce the textbook answer.** Most resident-arm summaries (80–96%, by judge and
+  name) identify a prisoner's dilemma, yet the name still moves choices from 18% to 97% A. Knowing the paradigm and playing its
+  equilibrium are separate.
+- **Nouns change who dies.** In Rations the rules, payoffs and numbers are identical across framings; only words like
+  ration/token and dies/is out differ. Survival nouns raise day-1 claims to 1.5–2.9 equal shares, so the group
+  asks for more than the expected pool in 93–100% of games (people: about half). They multiply avoidable deaths
+  (0.03 → 0.97 at Exact, 0.88 → 2.17 at Short) and make grabbing decide survival. Total deaths at Short are about
+  the same in both framings (2.45 and 2.38); under game nouns most of them are unavoidable scarcity, under survival
+  nouns most are caused by claims.
+- **Stated reasoning and behaviour diverge.** Under survival nouns, summaries weigh others' survival more often (71–83%
+  against 43–61%) and residents give more rescue rations (0.5–0.8 per game against 0–0.2), yet avoidable deaths are
+  higher. Reading the reasoning would not predict the outcome; measuring moves does.
+
+For agent evaluation, this means the wording of an environment is a variable in its own right: a cooperation or
+safety result measured under one framing need not hold under another with the same payoffs. These are results for
+one model at one setting, and sizes are descriptive.
+
 ## How it works
 
 ```
