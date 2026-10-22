@@ -24,7 +24,7 @@ are expected to run larger.
 
 | Experiment | Contrast | Model | People | Same direction? |
 |---|---|---|---|---|
-| Name of the Game | name, against a resident (Community − Stock Market, share choosing A) | +0.79 [+0.70, +0.88] | +0.185 | yes, about 4× larger |
+| Name of the Game | name, against a resident (Community − Stock Market, share choosing A) | +0.79 [+0.70, +0.88] | +0.185 | yes, about 4× larger; residents name a known game (see below) |
 | Name of the Game | the same, minus the name's effect against the computer | +0.78 [+0.69, +0.87] | +0.166 | yes |
 | Public goods | return 0.75 − 0.3 (share of tokens to the group) | +0.36 [+0.28, +0.44] | about +0.38 | yes, about the same size |
 | Public goods | helping − harm wording | −0.22 [−0.29, −0.15] | +0.174 | **no: harm wording raised giving** |
@@ -126,7 +126,7 @@ uv run social-experiments judge jev --tag pilot --cap 1                        #
 uv run social-experiments calibrate --tag pilot                                # sample for reference labels, then thresholds
 ```
 
-At list price with `claude-haiku-5-5`, a game costs about $0.0005 (Name of the Game), $0.005 (Public goods) and $0.02
+At list price with `claude-haiku-5-5`, a game costs about $0.0003 (Name of the Game), $0.005 (Public goods) and $0.02
 (Rations).
 
 ## Layout
@@ -143,6 +143,7 @@ src/social_experiments/
   report.py    tables, contrasts beside the human effects, and charts
   cli.py       the command line
 tests/         rules, payoffs, texts, measures, calibration and the report, all offline
-results/       recordings (results/<tag>/<experiment>/, one JSON per game), the spend ledger, the report
+results/       recordings (results/<tag>/<experiment>/, one JSON per game), reports and charts, the spend ledger,
+               the judges' answers, reference labels, thresholds and the probe
 docs/          decisions and the analysis plan
 ```

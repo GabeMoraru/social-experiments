@@ -13,7 +13,7 @@ def spare(held, day):
 
 def measure(days, level):
     """The measures of one complete game, from its list of days (see game.play)."""
-    over_claims = contested = resident_days = 0
+    over_claims = resident_days = 0
     grabbers = set()
     avoidable = withholding = rescue = sacrifice = 0
     for d in days:
@@ -30,7 +30,6 @@ def measure(days, level):
             # over-claiming: keeping more than would bring you up to your own need
             if kept > max(0, nights_left(day) - d['held'][name]):
                 over_claims += 1
-                contested += is_contested
         after_claims = {name: d['held'][name] + d['granted'][name] for name in d['alive']}
         for giver, to, amount in d['gifts']:
             rescue += amount if after_claims[to] < nights_left(day) else 0
@@ -49,9 +48,7 @@ def measure(days, level):
     expected_share = (first['store'] + MEAN_DELIVERY[level]) / len(first['alive'])
     alive_at_end = [name for name in days[-1]['alive'] if name not in days[-1]['died']]
     return {
-        'days': len(days),
         'over_claim_rate': over_claims / resident_days,
-        'contested_over_claims': contested,
         'avoidable_deaths': avoidable,
         'deaths': sum(len(d['died']) for d in days),
         'survivors': len(alive_at_end),

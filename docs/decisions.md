@@ -32,7 +32,7 @@ human study it copies.
 - **Residents are never told the others are copies of one model.** Telling them changes contributions in public
   goods games by up to 4 of 10 points (arXiv 2508.18467).
 - **Framings differ only in wording.** One template per experiment, nouns only, with one exception: the public goods
-  harm wording changes the sentences describing the payoffs, copying Andreoni's, and a test checks the payoffs are
+  harm wording changes the sentences describing the payoffs, following Andreoni's, and a test checks the payoffs are
   identical.
 
 ## Name of the Game
@@ -66,7 +66,7 @@ human study it copies.
   human effect (33.6% against 16.2%). Give against take shows no average effect (Cartwright 2016).
 - **The same choice in both wordings.** Khadjavi & Lange (2015) found part of Andreoni's effect came from changing
   which actions were available. Here both wordings split the same 20 tokens between the same two accounts.
-- **Andreoni's sentences, not a rewrite.** His wording keeps the own account paying 1 and the group account paying
+- **Andreoni's wording, closely paraphrased.** It keeps the own account paying 1 and the group account paying
   its owner the return, mirroring the positive wording.
 - **Cut:** punishment, messages, group size, strangers matching.
 
@@ -91,7 +91,7 @@ human study it copies.
 - **No points.** The only reason to grab is fear of going hungry. Points for spare rations would add greed, but they
   would be a goal sentence in another form.
 - **Full information, arithmetic done, no anchor.** Each day shows every resident's holdings and the need for the
-  nights left, so a miscount cannot pass for greed. In GovSim, accuracy at the arithmetic predicted survival.
+  nights left, so a miscount cannot pass for greed. In GovSim, accuracy at the arithmetic predicted survival (Piatti et al. 2024).
   - The holdings table shows no "short by N". People anchor requests on numbers on show (Budescu, Rapoport &
     Suleiman 1992), and that number would sit exactly at the over-claiming threshold.
 - **A starting store of one night's food.** With the first delivery before the first night, nobody can starve

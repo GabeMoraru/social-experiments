@@ -279,14 +279,12 @@ def report(tag):
             f'${sum(g["usd"] for g in games):.2f} at list price.'
         ),
     ]
-    sections = {
-        'rations': lambda: rations_section(tag, played['rations']),
-        'label': lambda: label_section(played['label']),
-        'goods': lambda: goods_section(tag, played['goods']),
-    }
-    for experiment, section in sections.items():
-        if played[experiment]:
-            out += [''] + section()
+    if played['rations']:
+        out += [''] + rations_section(tag, played['rations'])
+    if played['label']:
+        out += [''] + label_section(played['label'])
+    if played['goods']:
+        out += [''] + goods_section(tag, played['goods'])
     calibration = json.loads(judge.THRESHOLDS.read_text()) if judge.THRESHOLDS.exists() else {}
     if calibration:
         out += [

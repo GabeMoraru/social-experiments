@@ -31,7 +31,7 @@ def test_the_wordings_share_the_choice():
 
 
 def test_a_game_records_ten_rounds_and_an_invalid_split_keeps_everything(offline, tmp_path):
-    # members put in 10 tokens, except seat 4's first message each round, which asks for an impossible 30
+    # members put in 10 tokens, except in round 1, where every member asks for an impossible 30
     def policy(messages):
         return {'group': 30 if 'Round 1 ' in messages[-1].content else 10}
 

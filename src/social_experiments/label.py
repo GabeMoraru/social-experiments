@@ -113,8 +113,9 @@ def run(tag, seeds, cap):
     for opponent in OPPONENTS:
         rates = {label: None for label in LABELS}
         if opponent == 'computer':
+            played = load(tag, 'label')
             for label in LABELS:
-                pairs = [g for g in load(tag, 'label') if (g['label'], g['opponent']) == (label, 'resident')]
+                pairs = [g for g in played if (g['label'], g['opponent']) == (label, 'resident')]
                 rates[label] = share_a([g for g in pairs if g['status'] == 'complete'])
                 if rates[label] is None:
                     raise SystemExit(f'No resident-arm choices for {label} in {tag}, so the computer has none to copy.')
