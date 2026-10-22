@@ -4,8 +4,8 @@ a greedy one does not."""
 
 import random
 
-from rations.game import DAYS, LEVELS, MEAN_DELIVERY, START_STORE, deliveries, give, nights_left, play, split
-from rations.metrics import measure
+from social_experiments.game import DAYS, LEVELS, MEAN_DELIVERY, START_STORE, deliveries, give, nights_left, play, split
+from social_experiments.metrics import measure
 
 SEEDS = range(300)
 

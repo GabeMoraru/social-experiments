@@ -4,7 +4,7 @@ A resident's need on a day is the nights it still has to eat, tonight included; 
 A day's pool is the store the claims are shared out of: the morning's store plus the day's delivery.
 """
 
-from rations.game import MEAN_DELIVERY, nights_left
+from social_experiments.game import MEAN_DELIVERY, nights_left
 
 
 def spare(held, day):

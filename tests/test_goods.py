@@ -3,7 +3,7 @@
 import json
 import random
 
-from rations import goods
+from social_experiments import goods
 
 
 def test_the_negative_wording_describes_the_same_points():

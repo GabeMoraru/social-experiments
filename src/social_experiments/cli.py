@@ -1,9 +1,9 @@
-"""The command line: `uv run rations <command>`. Commands that call a paid model take --cap, a spend ceiling in USD
+"""The command line: `uv run social-experiments <command>`. Commands that call a paid model take --cap, a spend ceiling in USD
 for the project's ledger, which can never exceed the project's budget."""
 
 import argparse
 
-from rations import goods, judge, label, report, run
+from social_experiments import goods, judge, label, report, run
 
 EXPERIMENTS = {'rations': run.run, 'label': label.run, 'goods': goods.run}
 
@@ -15,7 +15,7 @@ def seeds(text):
 
 
 def main():
-    parser = argparse.ArgumentParser(prog='rations')
+    parser = argparse.ArgumentParser(prog='social-experiments')
     commands = parser.add_subparsers(dest='command', required=True)
 
     play = commands.add_parser('play', help='play every cell of one experiment for each seed (paid)')

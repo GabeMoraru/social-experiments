@@ -1,4 +1,4 @@
-# Rations
+# Social experiments
 
 **Do language-model agents respond to the stakes or to the story, and do they do it the way people did?**
 
@@ -15,7 +15,7 @@ tells them what to want.
 | **Rations** | the common-pool request game of Budescu, Rapoport & Suleiman 1990–92, with residents who can starve | scarcity (Plenty / Exact / Short) × framing (a village where you die / a game where you are out) | on the first claim, people ask for 1.13–1.26 equal shares |
 
 Status: the main runs are played (640 games, none failed, no invalid replies, $5.24) and the judges calibrated.
-[results/main/report.md](results/main/report.md) has every table; rebuild it with `uv run rations report --tag main`.
+[results/main/report.md](results/main/report.md) has every table; rebuild it with `uv run social-experiments report --tag main`.
 
 ## Results
 
@@ -108,7 +108,7 @@ is the pre-registered plan.
 
 ```bash
 uv sync
-uv run rations report --tag main     # rebuild every table and chart from the recordings: free, no key
+uv run social-experiments report --tag main     # rebuild every table and chart from the recordings: free, no key
 uv run pytest                        # the rules and measures, checked with scripted residents
 ```
 
@@ -117,13 +117,13 @@ takes `--cap`, a spend ceiling in USD. Every call is charged to `results/spend.j
 reaches the cap.
 
 ```bash
-uv run rations play label --tag pilot --seeds 1000:1005 --cap 1    # residents first, then the computer arm
-uv run rations play goods --tag pilot --seeds 1000:1002 --cap 1
-uv run rations play rations --tag pilot --seeds 1000:1002 --cap 1
-uv run rations probe --cap 1                                        # can the model do Rations' arithmetic?
-uv run rations judge luna --tag pilot --cap 1                       # LLM judge on thinking summaries
-uv run rations judge jev --tag pilot --cap 1                        # classifier on the same summaries
-uv run rations calibrate --tag pilot                                # sample for reference labels, then thresholds
+uv run social-experiments play label --tag pilot --seeds 1000:1005 --cap 1    # residents first, then the computer arm
+uv run social-experiments play goods --tag pilot --seeds 1000:1002 --cap 1
+uv run social-experiments play rations --tag pilot --seeds 1000:1002 --cap 1
+uv run social-experiments probe --cap 1                                        # can the model do Rations' arithmetic?
+uv run social-experiments judge luna --tag pilot --cap 1                       # LLM judge on thinking summaries
+uv run social-experiments judge jev --tag pilot --cap 1                        # classifier on the same summaries
+uv run social-experiments calibrate --tag pilot                                # sample for reference labels, then thresholds
 ```
 
 At list price with `claude-haiku-5-5`, a game costs about $0.0005 (Name of the Game), $0.005 (Public goods) and $0.02
@@ -132,7 +132,7 @@ At list price with `claude-haiku-5-5`, a game costs about $0.0005 (Name of the G
 ## Layout
 
 ```
-src/rations/
+src/social_experiments/
   label.py     Name of the Game: payoffs, text, the choose tool, the two arms
   goods.py     Public goods: payoffs in both wordings, text, the split tool, the rounds
   game.py      Rations' rules, as plain functions; no model

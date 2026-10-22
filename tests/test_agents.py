@@ -3,9 +3,9 @@
 import re
 from types import SimpleNamespace
 
-from rations import goods, label
-from rations.agents import FRAMES, IDLE, parse, rules, turn
-from rations.game import LEVELS, NAMES, play
+from social_experiments import goods, label
+from social_experiments.agents import FRAMES, IDLE, parse, rules, turn
+from social_experiments.game import LEVELS, NAMES, play
 
 
 def reply(*calls):

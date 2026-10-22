@@ -13,7 +13,7 @@ from pathlib import Path
 
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from rations import agents, game
+from social_experiments import agents, game
 
 RESULTS = Path('results')
 LEDGER = RESULTS / 'spend.jsonl'

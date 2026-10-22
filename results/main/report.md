@@ -56,11 +56,11 @@ Comprehension probe: 18 of 18 answers correct.
 | 0.75 | positive | 40 | 0.55 | 0.66 | 0.00 |
 | 0.75 | negative | 40 | 0.80 | 0.87 | 0.27 |
 
-People decline over ten rounds: about 35% to 3% at a return of 0.3 and 55% to 30% at 0.75 (Isaac & Walker 1988, read off a chart); 47.5% to 20.9% in positive wording and 27.8% to 1.0% in negative (Andreoni 1995).
+People decline over ten rounds: about 35% to 5% at a return of 0.3 and 55% to 31% at 0.75 (Isaac & Walker 1988, Figure II); 47.5% to 20.9% in positive wording and 27.8% to 1.0% in negative (Andreoni 1995).
 
 ### Primary contrasts (40 complete seeds)
 
-- Return: 0.75 - 0.3: +0.360, 97.5% interval [+0.281, +0.443]. People: about +0.38 (about 12% to 50%; Isaac & Walker 1988, read off a chart).
+- Return: 0.75 - 0.3: +0.360, 97.5% interval [+0.281, +0.443]. People: about +0.38 (about 12% to 50% in groups of 4; Isaac & Walker 1988, Figure II).
 - Wording: positive - negative: -0.215, 97.5% interval [-0.287, -0.147]. People: +0.174 (33.6% to 16.2%, at a return of 0.5; Andreoni 1995).
 
 ## Judge agreement (Cohen's kappa)

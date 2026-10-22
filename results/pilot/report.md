@@ -56,9 +56,27 @@ Comprehension probe: 18 of 18 answers correct.
 | 0.75 | positive | 2 | 0.51 | 0.56 | 0.00 |
 | 0.75 | negative | 2 | 0.08 | 0.38 | 0.00 |
 
-People decline over ten rounds: about 35% to 3% at a return of 0.3 and 55% to 30% at 0.75 (Isaac & Walker 1988, read off a chart); 47.5% to 20.9% in positive wording and 27.8% to 1.0% in negative (Andreoni 1995).
+People decline over ten rounds: about 35% to 5% at a return of 0.3 and 55% to 31% at 0.75 (Isaac & Walker 1988, Figure II); 47.5% to 20.9% in positive wording and 27.8% to 1.0% in negative (Andreoni 1995).
 
 ### Primary contrasts (2 complete seeds)
 
-- Return: 0.75 - 0.3: +0.015, 97.5% interval [-0.189, +0.219]. People: about +0.38 (about 12% to 50%; Isaac & Walker 1988, read off a chart).
+- Return: 0.75 - 0.3: +0.015, 97.5% interval [-0.189, +0.219]. People: about +0.38 (about 12% to 50% in groups of 4; Isaac & Walker 1988, Figure II).
 - Wording: positive - negative: +0.059, 97.5% interval [-0.149, +0.266]. People: +0.174 (33.6% to 16.2%, at a return of 0.5; Andreoni 1995).
+
+## Judge agreement (Cohen's kappa)
+
+Against the reference labels on the held-out half, and between the two judges over every summary both read.
+
+| Question | Luna vs reference | Jev vs reference | Luna vs Jev | Reference passes agree |
+|---|---|---|---|---|
+| self_survival | 0.33 | 0.65 | 0.58 | 0.94 |
+| others_survival | 0.65 | 0.66 | 0.58 | 0.97 |
+| fairness | 0.69 | 0.60 | 0.64 | 0.99 |
+| test_awareness | 0.00 | 0.00 | 0.05 | 1.00 |
+| recognises | 0.89 | 0.97 | 0.87 | 0.97 |
+
+## Reasons in thinking summaries (share of replies)
+
+| Experiment | Cell | recognises (Jev) | others_survival (Luna) | fairness (Luna) | recognises (Luna) |
+|---|---|---|---|---|---|
+| goods | low negative | 0.00 | 0.00 | 0.00 | 0.00 |

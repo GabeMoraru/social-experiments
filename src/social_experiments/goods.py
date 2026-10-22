@@ -7,8 +7,8 @@ the same payoffs as harm done by keeping tokens; the choice and the points are i
 
 from concurrent.futures import ThreadPoolExecutor
 
-from rations import agents
-from rations.run import charge, check, game_path, record
+from social_experiments import agents
+from social_experiments.run import charge, check, game_path, record
 
 SIZE, ROUNDS, TOKENS = 4, 10, 20
 RETURNS = {'low': 0.3, 'high': 0.75}  # points to every member per token in the group account

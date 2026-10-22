@@ -2,7 +2,7 @@
 
 import json
 
-from rations import label
+from social_experiments import label
 
 
 def test_the_arms_differ_only_in_the_name():

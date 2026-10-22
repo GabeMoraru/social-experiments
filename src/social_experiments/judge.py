@@ -23,8 +23,8 @@ import httpx
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI
 
-from rations import agents
-from rations.run import RESULTS, charge, check
+from social_experiments import agents
+from social_experiments.run import RESULTS, charge, check
 
 URL = 'https://api.typesafe.ai/v1/systemone'
 MODEL = 'jev-1.13.0'  # pinned: a moving alias would change answers under calibrated thresholds
@@ -123,7 +123,7 @@ def luna():
         reasoning={'effort': 'medium'},
         store=False,
         service_tier='default',
-        model_kwargs={'prompt_cache_key': 'rations-judge'},  # every request shares the instructions
+        model_kwargs={'prompt_cache_key': 'social-experiments-judge'},  # every request shares the instructions
     )
     return model.with_structured_output(VERDICTS, method='json_schema', strict=True, include_raw=True)
 

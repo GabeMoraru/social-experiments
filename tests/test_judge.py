@@ -2,7 +2,7 @@
 
 import json
 
-from rations import agents, judge
+from social_experiments import agents, judge
 
 
 def test_calibration_reports_a_separable_question_and_drops_a_noisy_one(tmp_path, monkeypatch):

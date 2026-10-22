@@ -2,10 +2,10 @@
 
 import json
 
-from rations import goods, label
-from rations.agents import FRAMINGS
-from rations.game import LEVELS, play
-from rations.report import report
+from social_experiments import goods, label
+from social_experiments.agents import FRAMINGS
+from social_experiments.game import LEVELS, play
+from social_experiments.report import report
 
 
 def test_report_builds_every_experiment_from_recordings(offline, tmp_path):

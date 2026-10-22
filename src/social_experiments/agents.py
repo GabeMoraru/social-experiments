@@ -8,7 +8,7 @@ from the story, not the rules. The text states facts and consequences only: it n
 from langchain_anthropic import ChatAnthropic
 from langchain_core.messages import HumanMessage, SystemMessage, ToolMessage
 
-from rations.game import DAYS, NAMES, START_STORE, delivery_range, nights_left
+from social_experiments.game import DAYS, NAMES, START_STORE, delivery_range, nights_left
 
 MODEL = 'claude-haiku-5-5'
 PRICE = {'input': 0.10, 'cache_write': 0.125, 'cache_read': 0.01, 'output': 0.50}  # USD per million tokens, list

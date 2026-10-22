@@ -12,11 +12,11 @@ from statistics import mean
 
 import matplotlib.pyplot as plt
 
-from rations import goods, judge, label
-from rations.agents import FRAMINGS
-from rations.game import LEVELS
-from rations.metrics import measure
-from rations.run import RESULTS, load
+from social_experiments import goods, judge, label
+from social_experiments.agents import FRAMINGS
+from social_experiments.game import LEVELS
+from social_experiments.metrics import measure
+from social_experiments.run import RESULTS, load
 
 COLUMNS = (
     'over_claim_rate',
@@ -35,7 +35,7 @@ PEOPLE = {
     'Story: survival - game': 'not measured in people with these rules',
     'Name, residents: Community - Stock Market': '+0.185 (26.4% to 44.9%; Ellingsen et al. 2012)',
     'Name, residents minus name, computer': '+0.166 (the name moved the computer arm by +0.019 only)',
-    'Return: 0.75 - 0.3': 'about +0.38 (about 12% to 50%; Isaac & Walker 1988, read off a chart)',
+    'Return: 0.75 - 0.3': 'about +0.38 (about 12% to 50% in groups of 4; Isaac & Walker 1988, Figure II)',
     'Wording: positive - negative': '+0.174 (33.6% to 16.2%, at a return of 0.5; Andreoni 1995)',
 }
 
@@ -250,8 +250,8 @@ def goods_section(tag, games):
     out += [
         '',
         (
-            'People decline over ten rounds: about 35% to 3% at a return of 0.3 and 55% to 30% at 0.75 (Isaac & Walker '
-            '1988, read off a chart); 47.5% to 20.9% in positive wording and 27.8% to 1.0% in negative (Andreoni 1995).'
+            'People decline over ten rounds: about 35% to 5% at a return of 0.3 and 55% to 31% at 0.75 (Isaac & Walker '
+            '1988, Figure II); 47.5% to 20.9% in positive wording and 27.8% to 1.0% in negative (Andreoni 1995).'
         ),
         '',
     ]

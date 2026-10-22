@@ -72,13 +72,14 @@ wordings of Andreoni (1995).
 **Measure:** the share of tokens put in the group account, per round and over the game.
 
 **Primary contrasts** (on a game's mean share):
-1. **Return:** 0.75 minus 0.3, averaged over wordings. People: about +0.38 (about 12% to 50%, read off a chart in
-   Isaac & Walker 1988).
+1. **Return:** 0.75 minus 0.3, averaged over wordings. People: about +0.38 (about 12% to 50% in groups of 4, from
+   Figure II of Isaac & Walker 1988).
 2. **Wording:** positive minus negative, averaged over returns. People: +0.174 (33.6% to 16.2%, at a return of 0.5;
    Andreoni 1995).
 
 **Descriptive:** the decline from round 1 to round 10, beside people's.
-- About 35% to 3% at 0.3, and 55% to 30% at 0.75 (Isaac & Walker).
+- About 35% to 5% at 0.3, and 55% to 31% at 0.75 (Isaac & Walker, Figure II; their end-period table gives 3.65%
+  and 26.35%, pooling groups of 4 and 10).
 - 47.5% to 20.9% in positive wording, and 27.8% to 1.0% in negative (Andreoni).
 - Fehr & Gächter's partners: mean 37.5%, last round 16%.
 

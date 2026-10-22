@@ -8,8 +8,8 @@ computer does, so the name works through what people expect of each other. Each 
 import random
 from concurrent.futures import ThreadPoolExecutor
 
-from rations import agents
-from rations.run import charge, check, game_path, load, record
+from social_experiments import agents
+from social_experiments.run import charge, check, game_path, load, record
 
 LABELS = {'community': 'Community Game', 'stock_market': 'Stock Market Game'}
 OPPONENTS = ('resident', 'computer')  # the resident arm is played first: the computer copies its choices

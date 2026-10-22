@@ -4,7 +4,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from rations import agents
+from social_experiments import agents
 
 
 class Scripted:
