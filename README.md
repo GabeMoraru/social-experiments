@@ -1,11 +1,45 @@
 # Social experiments
 
-Three published human experiments reimplemented as multi-agent environments for language models. Every seat is played
-by `claude-haiku-5-5`; two judges from other providers label the reasoning; every table is recomputed offline from
-the recordings.
+[![CI](https://github.com/GabeMoraru/social-experiments/actions/workflows/ci.yml/badge.svg)](https://github.com/GabeMoraru/social-experiments/actions/workflows/ci.yml)
+![Python 3.13](https://img.shields.io/badge/python-3.13-blue)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-Each experiment crosses a **stakes** variable (changes the payoffs or the rules) with a **story** variable (changes
-only the wording, or only the game's name), and reports each effect's direction beside the human study's.
+Three published human experiments reimplemented as multi-agent environments for language models, to ask whether
+model agents respond to the **stakes** (payoffs and rules) or the **story** (wording only), and whether they do it
+the way people did. Every seat is played by `claude-haiku-5-5`; two judges from other providers label the reasoning;
+every table is recomputed offline from the committed recordings.
+
+**Key findings** (one model, pre-registered contrasts; sizes are descriptive):
+
+- Where an effect runs through payoffs or the other player, the model moves the same way people did: a higher return
+  per token raises contributions (+0.36, people about +0.38), and a game's name matters only against another agent.
+- Where an effect runs through wording alone, it can depart: Andreoni's negative wording, with identical payoffs,
+  lowers contributions in people and raises them in the model (−0.22, people +0.174).
+- In Rations, changing only nouns (ration/token, dies/is out) multiplies avoidable deaths: 0.03 → 0.97 per game at
+  Exact scarcity, 0.88 → 2.17 at Short.
+- Stated reasoning and behaviour diverge: under survival nouns, summaries weigh others' survival more often, yet
+  more residents die from claims.
+
+Main run: 640 games, 13,413 model calls, 10,547 thinking summaries, no failed games and no invalid replies, $5.24 at
+list price.
+
+## Quick start
+
+Requires Python 3.13 and [uv](https://docs.astral.sh/uv/). No API key is needed to rebuild the results.
+
+```bash
+git clone https://github.com/GabeMoraru/social-experiments.git
+cd social-experiments
+uv sync
+uv run social-experiments report --tag main     # rebuild every table and chart from the recordings: free, no key
+uv run pytest                                   # 30 offline tests with a scripted model
+```
+
+It takes a few seconds and rewrites [results/main/report.md](results/main/report.md) and its charts unchanged.
+
+## The experiments
+
+Each crosses a stakes variable (payoffs or rules) with a story variable (only the wording, or only the game's name).
 
 | Experiment | Source | Design | Calls per game | Measure |
 |---|---|---|---|---|
@@ -13,8 +47,25 @@ only the wording, or only the game's name), and reports each effect's direction 
 | **Public goods** | Fehr & Gächter 2000; Isaac & Walker 1988; Andreoni 1995 | return per token (0.3 / 0.75) × wording (positive / negative, identical payoffs), 40 seeds | 40 | share of tokens to the group account |
 | **Rations** | request game of Budescu, Rapoport & Suleiman 1990–92, extended with starvation | scarcity (Plenty / Exact / Short) × framing (survival / game nouns), 40 seeds | ≤ 30 | over-claiming; avoidable deaths |
 
-Main run: 640 games, 13,413 model calls, 10,547 thinking summaries, no failed games and no invalid replies, $5.24 at
-list price. [results/main/report.md](results/main/report.md) has every table.
+**Name of the Game.** One-shot, simultaneous A or B. Both A pay 50 each, both B 20 each, A against B pays 5 to A and
+80 to B. Against a resident, both choose. Against the computer, it plays A at the rate observed in the resident arm
+(so that arm runs first) and its points go to a passive receiver.
+
+**Public goods.** Groups of four, ten rounds, fixed membership, no messages. Each round every member splits 20 tokens
+between its own account (1 point per token) and the group account (the return, 0.3 or 0.75, to every member per
+token), then sees the group total and its own points. The negative wording, after Andreoni, states the same payoffs
+as a cost to others of each kept token plus a fixed payment; `tests/test_goods.py` checks the payoffs are identical.
+
+**Rations.** Six residents, five days, a store starting at 6. Each day every living resident simultaneously sends one
+broadcast message (read the next morning), claims rations and gives rations. Then a delivery arrives, uniform over a
+known range (7–11 Plenty, 4–8 Exact, 2–6 Short), and claims are filled from store plus delivery, proportionally in
+whole rations when they exceed it. Each night every resident eats one of its own rations or one from the store by
+lot; one that gets none dies. With no claims at all, nobody starves while food suffices, so each avoidable death is
+attributable to claims.
+
+Text a resident reads states facts and consequences, never what to want, never names the paradigm, and never says
+the others are copies of one model; tests guard this. [docs/decisions.md](docs/decisions.md) gives the reason for
+each rule and every departure from the source studies.
 
 ## Results
 
@@ -31,9 +82,12 @@ Pre-registered contrasts ([docs/analysis-plan.md](docs/analysis-plan.md)), paire
 | Rations | survival − game (over-claiming rate) | +0.037 [+0.027, +0.047] | not measured | — |
 
 - **Name of the Game:** 97% A under "Community" and 18% under "Stock Market" against a resident; 1% and 0% against
-  the computer. Nearly every resident-arm summary identifies the game as a prisoner's dilemma.
+  the computer. Most resident-arm summaries identify the game as a prisoner's dilemma.
 - **Public goods:** contributions fall to near zero by round 10 in every cell except 0.75 with negative wording,
-  which ends at 27%.
+  which ends at 27%, with a sharp drop in the final round.
+
+  ![Share of tokens to the group account by round, for each return and wording](results/main/goods.png)
+
 - **Rations:** over-claiming is 1–11% of resident-days. Avoidable deaths per game:
 
   | | Survival | Game |
@@ -45,6 +99,9 @@ Pre-registered contrasts ([docs/analysis-plan.md](docs/analysis-plan.md)), paire
   Day-1 claims are 1.5–2.9 expected equal shares under survival nouns and 0.5–1.0 under game nouns (people:
   1.13–1.26). At Short under survival nouns, every resident that never grabbed died, against 35% of those that did.
 
+[results/main/report.md](results/main/report.md) has every table, including withholding, rescue, self-sacrifice,
+the comprehension probe (18 of 18 correct) and the judges' answers per cell.
+
 ## What the results show
 
 - **The model follows people where an effect runs through payoffs or the other player, and departs where it runs
@@ -53,13 +110,13 @@ Pre-registered contrasts ([docs/analysis-plan.md](docs/analysis-plan.md)), paire
   effect: told that a kept token costs every other member the return, it gives more (0.40 against 0.22 at 0.3, 0.80
   against 0.55 at 0.75), where people gave less. The model appears to act on the externality as stated rather than
   on the loss frame.
-- **Its cooperation is conditional on another agent choosing.** Against a resident, "Community" draws 97% A. Against
-  the computer, which plays the same mix, A falls to 0–1% under either name, where people stayed near 27–29%. As in
+- **Choosing A is conditional on another agent choosing.** Against a resident, "Community" draws 97% A. Against the
+  computer, which plays the same mix, A falls to 0–1% under either name, where people stayed near 27–29%. As in
   people, the name matters only when another agent chooses, which points to expectations of the other side rather
   than the label itself; the effect is about 4× larger.
 - **Recognising the game does not produce the textbook answer.** Most resident-arm summaries (80–96%, by judge and
-  name) identify a prisoner's dilemma, yet the name still moves choices from 18% to 97% A. Knowing the paradigm and playing its
-  equilibrium are separate.
+  name) identify a prisoner's dilemma, yet the name still moves choices from 18% to 97% A. Knowing the paradigm and
+  playing its equilibrium are separate.
 - **Nouns change who dies.** In Rations the rules, payoffs and numbers are identical across framings; only words like
   ration/token and dies/is out differ. Survival nouns raise day-1 claims to 1.5–2.9 equal shares, so the group
   asks for more than the expected pool in 93–100% of games (people: about half). They multiply avoidable deaths
@@ -70,9 +127,22 @@ Pre-registered contrasts ([docs/analysis-plan.md](docs/analysis-plan.md)), paire
   against 43–61%) and residents give more rescue rations (0.5–0.8 per game against 0–0.2), yet avoidable deaths are
   higher. Reading the reasoning would not predict the outcome; measuring moves does.
 
-For agent evaluation, this means the wording of an environment is a variable in its own right: a cooperation or
-safety result measured under one framing need not hold under another with the same payoffs. These are results for
-one model at one setting, and sizes are descriptive.
+For agent evaluation, this means the wording of an environment is a variable in its own right: a result measured
+under one framing need not hold under another with the same payoffs.
+
+## Limitations
+
+- **One model at one setting.** Every seat is `claude-haiku-5-5` with fixed settings. Behaviour in these games varies
+  widely across models, so the results are claims about this model only.
+- **Sizes are descriptive.** Model effects tend to run larger than people's (here up to about 4×), so only the
+  direction of each effect is compared with the human study; no claim is made that distributions match.
+- **Residents are copies of one model,** so the game, not the resident, is the unit: 40–60 games per cell.
+- **Reasons are reported only where a judge is calibrated.** Own survival and test awareness pass neither judge's
+  bar, so they are not reported.
+- **Test awareness cannot be checked.** The labelled sample held no positives, and stated awareness is at best a
+  lower bound: awareness can rise while behaviour stays flat.
+- **Rations has no human direction to match:** scarcity has no single human sign, and its framing was not studied in
+  people.
 
 ## How it works
 
@@ -103,10 +173,6 @@ state it reached. Seed *k* gives the same deliveries, seating and lots in every 
 **Measures** are pure functions of a recording (`metrics.measure`, `label.share_a`, `goods.contribution`); the
 report needs no API key.
 
-**Spend.** Every call is priced at list rates and appended to `results/spend.jsonl`. Each command takes `--cap` (USD)
-and nothing is sent once spend reaches it; the project total is capped at $21.50 (`run.BUDGET`). Recorded games
-are skipped, so an interrupted run resumes.
-
 **Judges.** Two judges answer five yes/no questions about each thinking summary: own survival, others' survival,
 fairness, test awareness, and recognition of a known game or study.
 - **Jev** (TypeSafe's classifier, pinned to `jev-1.13.0`, over REST) returns a probability per question.
@@ -116,7 +182,8 @@ fairness, test awareness, and recognition of a known game or study.
 
 **Calibration.** 200 summaries, drawn in turn from each experiment, were labelled in two independent blinded passes;
 summaries both passes agree on are split in half by digest. Jev's threshold is the lowest reaching precision 0.9 on
-one half and must hold on the other; Luna must reach Cohen's κ ≥ 0.6 on the held-out half.
+one half and must hold on the other; Luna must reach Cohen's κ ≥ 0.6 on the held-out half. Results are in
+[results/thresholds.json](results/thresholds.json).
 
 | Question | Pass agreement | Jev held-out precision | Luna κ | Reported |
 |---|---|---|---|---|
@@ -126,36 +193,11 @@ one half and must hold on the other; Luna must reach Cohen's κ ≥ 0.6 on the h
 | own survival | 0.935 | 0.50 | 0.33 | neither |
 | test awareness | 1.00 | — | 0.00 | neither (no positives in the sample) |
 
-## The rules
+## Running new games
 
-**Name of the Game.** One-shot, simultaneous A or B. Both A pay 50 each, both B 20 each, A against B pays 5 to A and
-80 to B. Against a resident, both choose. Against the computer, it plays A at the rate observed in the resident arm
-(so that arm runs first) and its points go to a passive receiver.
-
-**Public goods.** Groups of four, ten rounds, fixed membership, no messages. Each round every member splits 20 tokens
-between its own account (1 point per token) and the group account (the return, 0.3 or 0.75, to every member per
-token), then sees the group total and its own points. The negative wording, after Andreoni, states the same payoffs
-as a cost to others of each kept token plus a fixed payment; `tests/test_goods.py` checks the payoffs are identical.
-
-**Rations.** Six residents, five days, a store starting at 6. Each day every living resident simultaneously sends one
-broadcast message (read the next morning), claims rations and gives rations. Then a delivery arrives, uniform over a known range (7–11 Plenty,
-4–8 Exact, 2–6 Short), and claims are filled from store plus delivery, proportionally in whole rations when they
-exceed it. Each night every resident eats one of its own rations or one from the store by lot; one that gets none
-dies. With no claims at all, nobody starves while food suffices, so each avoidable death is attributable to claims.
-
-[docs/decisions.md](docs/decisions.md) gives the reason for each rule and every departure from the source studies.
-
-## Run it
-
-Requires Python 3.13 and [uv](https://docs.astral.sh/uv/).
-
-```bash
-uv sync
-uv run social-experiments report --tag main     # rebuild every table and chart from the recordings: free, no key
-uv run pytest                                   # 30 offline tests with a scripted model
-```
-
-Paid commands need `ANTHROPIC_API_KEY` (plus `OPENAI_API_KEY` and `TYPESAFE_API_KEY` for the judges):
+Paid commands need `ANTHROPIC_API_KEY` (plus `OPENAI_API_KEY` and `TYPESAFE_API_KEY` for the judges). These are the
+pilot commands; seeds are half-open ranges. Games already recorded under a tag are skipped, so to play new ones use
+another tag and seeds, for example `--tag dev --seeds 900:902`.
 
 ```bash
 uv run social-experiments play label --tag pilot --seeds 1000:1005 --cap 1    # resident arm, then the computer arm
@@ -165,9 +207,20 @@ uv run social-experiments probe --cap 1                                        #
 uv run social-experiments judge luna --tag pilot --cap 1
 uv run social-experiments judge jev --tag pilot --cap 1
 uv run social-experiments calibrate --tag pilot                                # sample to label, then thresholds
+uv run social-experiments report --tag pilot
 ```
 
-At list price a game costs about $0.0003 (Name of the Game), $0.006 (Public goods) and $0.02 (Rations).
+An interrupted run resumes where it stopped. Failed games stay recorded and counted, never averaged in.
+
+## Cost
+
+- Every call is priced at list rates and appended to [results/spend.jsonl](results/spend.jsonl), which is never
+  edited.
+- Each paid command takes `--cap` (USD) and sends nothing once spend reaches it; the project total is capped at
+  $21.50 (`run.BUDGET`).
+- At list price a game costs about $0.0003 (Name of the Game), $0.006 (Public goods) and $0.02 (Rations). The main
+  run cost $5.24; the ledger's total for the whole project, with development checks, pilots, the probe and both
+  judges, is $8.19.
 
 ## Layout
 
@@ -188,4 +241,20 @@ results/       recordings (results/<tag>/<experiment>/), reports and charts, the
 docs/          decisions and the pre-registered analysis plan
 ```
 
-MIT licensed.
+## References
+
+- Andreoni, J. (1995). Warm-glow versus cold-prickle: the effects of positive and negative framing on cooperation in
+  experiments. *Quarterly Journal of Economics*, 110(1).
+- Budescu, D., Rapoport, A. & Suleiman, R. (1990–92), and Rapoport et al. (1992): the common-pool request game.
+- Ellingsen, T., Johannesson, M., Mollerstrom, J. & Munkhammar, S. (2012). Social framing effects: preferences or
+  beliefs? *Games and Economic Behavior*, 76(1).
+- Fehr, E. & Gächter, S. (2000). Cooperation and punishment in public goods experiments. *American Economic Review*,
+  90(4).
+- Isaac, R. M. & Walker, J. M. (1988). Group size effects in public goods provision: the voluntary contributions
+  mechanism. *Quarterly Journal of Economics*, 103(1).
+
+[docs/decisions.md](docs/decisions.md) cites the further work behind individual rules.
+
+## License
+
+[MIT](LICENSE)
