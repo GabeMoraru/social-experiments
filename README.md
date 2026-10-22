@@ -14,7 +14,53 @@ tells them what to want.
 | **Public goods** | Fehr & Gächter 2000; Isaac & Walker 1988; Andreoni 1995 | return per token (0.3 / 0.75) × wording (helping / harming, identical payoffs) | more is given at the higher return, giving falls over ten rounds, and harm wording halves it (34% → 16%) |
 | **Rations** | the common-pool request game of Budescu, Rapoport & Suleiman 1990–92, with residents who can starve | scarcity (Plenty / Exact / Short) × framing (a village where you die / a game where you are out) | on the first claim, people ask for 1.13–1.26 equal shares |
 
-Status: the code is complete and tested; the pilots and main runs have not been played.
+Status: the main runs are played (640 games, none failed, no invalid replies, $5.24) and the judges calibrated.
+[results/main/report.md](results/main/report.md) has every table; rebuild it with `uv run rations report --tag main`.
+
+## Results
+
+Each pre-registered contrast, with its 97.5% interval, beside the human effect. Directions are compared; model effects
+are expected to run larger.
+
+| Experiment | Contrast | Model | People | Same direction? |
+|---|---|---|---|---|
+| Name of the Game | name, against a resident (Community − Stock Market, share choosing A) | +0.79 [+0.70, +0.88] | +0.185 | yes, about 4× larger |
+| Name of the Game | the same, minus the name's effect against the computer | +0.78 [+0.69, +0.87] | +0.166 | yes |
+| Public goods | return 0.75 − 0.3 (share of tokens to the group) | +0.36 [+0.28, +0.44] | about +0.38 | yes, about the same size |
+| Public goods | helping − harm wording | −0.22 [−0.29, −0.15] | +0.174 | **no: harm wording raised giving** |
+| Rations | stakes: Short − Plenty (over-claiming) | +0.058 [+0.043, +0.073] | no single human sign | — |
+| Rations | story: survival − game (over-claiming) | +0.037 [+0.027, +0.047] | not measured | — |
+
+- **Name of the Game.**
+  - Against another resident, 97% chose A under "Community" and 18% under "Stock Market".
+  - Against the computer, 1% and 0%: as in people, the name matters only when another player chooses.
+  - Almost every summary in the resident arm names the game (a prisoner's dilemma), yet the name still moves the
+    choice from 18% to 97%.
+- **Public goods.**
+  - Contributions fall to near zero by round 10 in every cell but one: 0.75 with harm wording, which ends at 27%.
+  - In the harm wording, residents weigh the cost a kept token puts on the others and give more, the opposite of
+    people.
+- **Rations.** Over-claiming is rare (1–11% of resident-days), but deaths that nobody claiming would have prevented
+  follow the story more than the stakes:
+
+  | Avoidable deaths per game | Survival | Game |
+  |---|---|---|
+  | Plenty | 0.28 | 0.00 |
+  | Exact | 0.97 | 0.03 |
+  | Short | 2.17 | 0.88 |
+
+  - **Day 1:** in the village framing residents claim 1.5–2.9 equal shares, against 0.5–1.0 in the game framing and
+    1.13–1.26 for people.
+  - **Who survives at Short:** in the village framing every resident who never grabbed died, against 35% of those who
+    grabbed. In the game framing grabbing made no difference (60% against 63% surviving).
+  - **What residents weigh:** the LLM judge finds them weighing others' survival more often in the village framing
+    (71–83% of summaries against 43–61%).
+  - **Recognition:** no Rations summary names a known game.
+- **Judges.** Reported only where they match the reference labels on held-out summaries:
+  - recognition: both judges;
+  - fairness and others' survival: the LLM judge;
+  - self-survival: neither;
+  - test awareness: no summary in the reference sample shows it, so no judge can be checked on it.
 
 ## The rules
 

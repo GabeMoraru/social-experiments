@@ -62,3 +62,34 @@ People decline over ten rounds: about 35% to 3% at a return of 0.3 and 55% to 30
 
 - Return: 0.75 - 0.3: +0.360, 97.5% interval [+0.281, +0.443]. People: about +0.38 (about 12% to 50%; Isaac & Walker 1988, read off a chart).
 - Wording: positive - negative: -0.215, 97.5% interval [-0.287, -0.147]. People: +0.174 (33.6% to 16.2%, at a return of 0.5; Andreoni 1995).
+
+## Judge agreement (Cohen's kappa)
+
+Against the reference labels on the held-out half, and between the two judges over every summary both read.
+
+| Question | Luna vs reference | Jev vs reference | Luna vs Jev | Reference passes agree |
+|---|---|---|---|---|
+| self_survival | 0.33 | 0.65 | 0.58 | 0.94 |
+| others_survival | 0.65 | 0.66 | 0.58 | 0.97 |
+| fairness | 0.69 | 0.60 | 0.64 | 0.99 |
+| test_awareness | 0.00 | 0.00 | 0.05 | 1.00 |
+| recognises | 0.89 | 0.97 | 0.87 | 0.97 |
+
+## Reasons in thinking summaries (share of replies)
+
+| Experiment | Cell | recognises (Jev) | others_survival (Luna) | fairness (Luna) | recognises (Luna) |
+|---|---|---|---|---|---|
+| goods | high negative | 0.16 | 0.01 | 0.02 | 0.19 |
+| goods | high positive | 0.17 | 0.00 | 0.03 | 0.18 |
+| goods | low negative | 0.15 | 0.01 | 0.02 | 0.17 |
+| goods | low positive | 0.17 | 0.01 | 0.02 | 0.18 |
+| label | community computer | 0.04 | 0.00 | 0.00 | 0.07 |
+| label | community resident | 0.94 | 0.00 | 0.02 | 0.95 |
+| label | stock_market computer | 0.38 | 0.00 | 0.00 | 0.39 |
+| label | stock_market resident | 0.80 | 0.00 | 0.00 | 0.96 |
+| rations | exact game | 0.00 | 0.43 | 0.18 | 0.00 |
+| rations | exact survival | 0.00 | 0.79 | 0.23 | 0.00 |
+| rations | plenty game | 0.00 | 0.44 | 0.13 | 0.00 |
+| rations | plenty survival | 0.00 | 0.71 | 0.22 | 0.00 |
+| rations | short game | 0.00 | 0.61 | 0.24 | 0.00 |
+| rations | short survival | 0.00 | 0.83 | 0.22 | 0.00 |
