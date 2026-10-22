@@ -1,7 +1,7 @@
 """Public goods: four residents split tokens between their own account and a group account, for ten rounds.
 
 Copied from the no-punishment partner arm of Fehr & Gächter (2000), with the two returns per token of Isaac & Walker
-(1988) and the positive and negative wording of Andreoni (1995), sentence for sentence. The negative wording describes
+(1988) and the positive and negative wording of Andreoni (1995), closely paraphrased. The negative wording describes
 the same payoffs as harm done by keeping tokens; the choice and the points are identical in both.
 """
 
