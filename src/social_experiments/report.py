@@ -6,6 +6,7 @@ contrasts get paired bootstrap 97.5% intervals, shown beside the effect in the h
 """
 
 import json
+import math
 import random
 from collections import defaultdict
 from statistics import mean
@@ -108,7 +109,7 @@ def reasons(tag, calibration):
 
 
 def chart(cells, path):
-    fig, axes = plt.subplots(1, 2, figsize=(9, 3.6))
+    fig, axes = plt.subplots(1, 2, figsize=(6.5, 3.6))
     for ax, column, title in zip(
         axes,
         ('over_claim_rate', 'avoidable_deaths'),
@@ -121,11 +122,13 @@ def chart(cells, path):
         ax.set_xticks(range(len(FRAMINGS)), [f.capitalize() for f in FRAMINGS])
         ax.set_yticks(range(len(LEVELS)), [lv.capitalize() for lv in LEVELS])
         ax.set_title(title, fontsize=10)
+        top = max((v for row in grid for v in row if not math.isnan(v)), default=0)
         for i, row in enumerate(grid):
             for j, value in enumerate(row):
-                ax.text(j, i, f'{value:.2f}', ha='center', va='center')
+                # white on the darker half of the colour scale, so every value stays readable
+                ax.text(j, i, f'{value:.2f}', ha='center', va='center', color='white' if value > top / 2 else 'black')
     fig.tight_layout()
-    fig.savefig(path, dpi=150)
+    fig.savefig(path, dpi=150, bbox_inches='tight')
     plt.close(fig)
 
 
@@ -243,9 +246,10 @@ def goods_section(tag, games):
             )
             ax.plot(range(1, goods.ROUNDS + 1), by_round, marker='o', label=f'return {r}, {wording}')
     ax.set(xlabel='Round', ylabel='Share of tokens to the group account', ylim=(0, 1))
+    ax.set_xticks(range(1, goods.ROUNDS + 1))
     ax.legend(fontsize=8)
     fig.tight_layout()
-    fig.savefig(RESULTS / tag / 'goods.png', dpi=150)
+    fig.savefig(RESULTS / tag / 'goods.png', dpi=150, bbox_inches='tight')
     plt.close(fig)
     out += [
         '',
